@@ -1,0 +1,33 @@
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDE 
+.vscode/
+.idea/
+
+# Project
+/build/
+/dist/
+
+## node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+## Android
+android/**/build/
+android/**/generated/
+android/.gradle
+android/captures/
+android/local.properties
+
+## iOS
+ios/build/
+ios/Pods/
+ios/*.xcworkspace/
+ios/*.xcodeproj/
