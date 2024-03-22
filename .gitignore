@@ -1,33 +1,47 @@
-# MacOS
-.DS_Store
+# 종속성 #
+/node_modules/
 
-# Windows
-Thumbs.db
-Desktop.ini
-$RECYCLE.BIN/
+# 배포/빌드 폴더 #
+/android/app/build/
+/ios/build/
+/ios/Pods/
 
-# IDE 
-.vscode/
-.idea/
+# 디버깅 파일 #
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# Project
-/build/
-/dist/
+# 환경 설정 파일 #
+#.env
+#.env.local
+#.env.*.local
 
-## node.js
-node_modules/
-npm-debug.log
-yarn-error.log
-
-## Android
-android/**/build/
-android/**/generated/
-android/.gradle
-android/captures/
+# 프로젝트 설정 & 사용자 특정 파일 #
 android/local.properties
+ios/*.xcworkspace
+ios/*.xcuserstate
+ios/*.xcscmblueprint
+.idea/
+.vscode/
+*.swp
+*.swo
 
-## iOS
-ios/build/
-ios/Pods/
-ios/*.xcworkspace/
-ios/*.xcodeproj/
+# 시스템 파일 #
+.DS_Store
+Thumbs.db
+
+# Keystores #
+*.jks
+*.keystore
+*.p12
+*.pem
+*.pk8
+
+# Watchman #
+.watchmanconfig
+
+# 버전 관리에서 제외할 임시 파일들 #
+*.tmp
+*.temp
+
