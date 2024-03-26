@@ -1,10 +1,12 @@
 # 앱티튜드(Apptitude)
 
 <!-- 프로젝트 배너 (선택 사항) -->
+
 ![프로젝트 로고](배너 이미지 URL)
 
-## Tech Stack  
-![AppVeyor](https://img.shields.io/static/v1?label=&message=JavaScript&color=yellow) ![AppVeyor](https://img.shields.io/static/v1?label=&message=Node.js&color=green) ![AppVeyor](https://img.shields.io/static/v1?label=&message=express.js&color=black) 
+## Tech Stack
+
+![AppVeyor](https://img.shields.io/static/v1?label=&message=JavaScript&color=yellow) ![AppVeyor](https://img.shields.io/static/v1?label=&message=Node.js&color=green) ![AppVeyor](https://img.shields.io/static/v1?label=&message=express.js&color=black)
 
 ## 소개
 
@@ -14,7 +16,17 @@
 
 ## 시작하기
 
-이 섹션에서는 사용자가 프로젝트를 시작하는 데 필요한 모든 정보를 제공합니다.
+- 패키지 설치
+
+```
+$ npm install
+```
+
+- 서버 실행
+
+```
+$ npm start
+```
 
 ### 전제 조건
 
@@ -50,4 +62,3 @@ npm install
 ## 감사의 말
 
 프로젝트에 도움을 준 사람들이나 프로젝트에 영감을 준 다른 프로젝트에 대한 감사의 말을 추가할 수 있습니다.
-
