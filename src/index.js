@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import { RouterProvider } from "react-router-dom";
 import { router } from "./router";
 import { createGlobalStyle } from "styled-components";
+import './index.css';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -57,6 +57,10 @@ table {
 }
 * {
   box-sizing: border-box;
+}
+a {
+  text-decoration: none;
+  color: inherit;
 }
 `;
 

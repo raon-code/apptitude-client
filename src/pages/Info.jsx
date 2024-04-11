@@ -1,8 +1,8 @@
 import Nav from "../components/Nav";
 
-export default function Home() {
+export default function Info() {
     return (
-        <div className="">
+        <div>
             <Nav />
         </div>
     );
