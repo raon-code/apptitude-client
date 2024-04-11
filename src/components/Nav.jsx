@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { Link, matchPath, useMatch} from "react-router-dom";
+import { Link, useMatch} from "react-router-dom";
 import { cls } from "../libs/utils";
 
 const Item = styled(motion.div)`
