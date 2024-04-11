@@ -7,7 +7,8 @@ const titles = ['대결 이름', '대결 목표', '대결 보상', '대결 확�
 export default function Battle() {
     const [index, setIndex] = useState(1);
     const [title, setTitle] = useState(titles[0]);
-    const [step, setStep] = useState('다음')
+    const [step, setStep] = useState('다음');
+    const [confirm, isConfirm] = useState(false);
 
     function onClick() {
         if (titles.length === index) {
@@ -37,7 +38,7 @@ export default function Battle() {
     return (
         <div>
             <Back title={title} backClick={backClick}/>
-            <Button clickEvent={onClick} step={step}/>
+            <Button clickEvent={onClick} step={step} confirm={confirm}/>
         </div>
     );
 }
