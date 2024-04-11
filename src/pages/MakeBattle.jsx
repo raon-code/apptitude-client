@@ -8,7 +8,7 @@ export default function Battle() {
     const [index, setIndex] = useState(1);
     const [title, setTitle] = useState(titles[0]);
     const [step, setStep] = useState('다음');
-    const [confirm, isConfirm] = useState(false);
+    const [confirm, setConfirm] = useState(true);
 
     function onClick() {
         if (titles.length === index) {
