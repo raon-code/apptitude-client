@@ -21,7 +21,9 @@ export default function Nav() {
                     </svg>
                     <span className="text-[12px]">내 기록</span>
                 </div>
-                {mainMatch && <Item className="w-[42px] h-full top-0 absolute border-b-2 border-[#04C357] mx-[39px]"  layoutId="navigation"></Item>}
+                {mainMatch && <Item className="w-full h-full top-0 absolute flex justify-center items-center px-9"  layoutId="navigation">
+                <div className="border-[2px] w-[42px] border-[#04C357] absolute bottom-0 rounded-t-[10px] rounded-b-[4px]"></div>    
+                </Item>}
             </Link>
             <Link to={'/battle'} className={cls(`pb-[7px] pt-[10px] w-full h-full relative`, battleMatch ? 'fill-[#04C357] text-[#04C357]' : 'fill-[#FEFEFE] opacity-[0.6] text-[#FEFEFE]')}>
                 <div className="flex flex-col items-center gap-1 relative">
@@ -31,7 +33,9 @@ export default function Nav() {
                     </svg>
                     <span className="text-[12px]">대결하기</span>
                 </div>
-                {battleMatch && <Item className="w-[42px] h-full top-0 absolute border-b-2 border-[#04C357] mx-[39px]"  layoutId="navigation"></Item>}
+                {battleMatch && <Item className="w-full h-full top-0 absolute flex justify-center items-center px-9"  layoutId="navigation">
+                    <div className="border-[2px] w-[42px] border-[#04C357] absolute bottom-0 rounded-t-[10px] rounded-b-[4px]"></div>    
+                </Item>}
             </Link>
             <Link to={'/info'} className={cls(`pb-[7px] pt-[10px] w-full h-full relative`, infoMatch ? 'fill-[#04C357] text-[#04C357]' : 'fill-[#FEFEFE] opacity-[0.6] text-[#FEFEFE]')}>
                 <div className="flex flex-col items-center gap-1 relative">
@@ -40,7 +44,9 @@ export default function Nav() {
                     </svg>
                     <span className="text-[12px]">내 정보</span>
                 </div>
-                {infoMatch && <Item className="w-[42px] h-full top-0 absolute border-b-2 border-[#04C357] mx-[39px]"  layoutId="navigation"></Item>}
+                {infoMatch && <Item className="w-full h-full top-0 absolute flex justify-center items-center px-9"  layoutId="navigation">
+                <div className="border-[2px] w-[42px] border-[#04C357] absolute bottom-0 rounded-t-[10px] rounded-b-[4px]"></div>    
+                </Item>}
             </Link>
         </nav>
     )

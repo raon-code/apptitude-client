@@ -4,7 +4,6 @@ import image from '../Design2.png'
 export default function Modal() {
     return (
         <div className="">
-            <div className=""></div>
             <div className="flex flex-col w-full bg-[#28272B] h-fit absolute bottom-0 text-white pt-[32px] rounded-t-[32px] pb-[128px] text-center">
                 <div className="flex flex-col font-bold text-[24px] items-center gap-[4px]">
                     <span>김수한무님</span>
