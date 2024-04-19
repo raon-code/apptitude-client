@@ -1,14 +1,18 @@
-import BattleCalendar from './yyj/Calendar';
+import { useState } from "react";
+import Modal from "../components/Modal";
+import Nav from "../components/Nav";
 
 export default function Home() {
-    const handleDateChange = (selectedDate) => {
-        console.log('Selected date:', selectedDate);
-        // 다른 로직 처리
-      };
+    const [modalOpen, setModalOpen] = useState(false);
+    // 모달창 오픈할 때
+    // setModalOpen(true)
     return (
-        <div>
-            <h1>Home</h1>
-            <BattleCalendar onChange={handleDateChange} />
+        <div className="">
+            <div className="">
+                <Nav />
+            </div>
+            {modalOpen ? <Modal /> : null}
         </div>
+
     );
 }
