@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RouterProvider } from "react-router-dom";
-import { router } from "./router";
-import { createGlobalStyle } from "styled-components";
+import { RouterProvider } from 'react-router-dom';
+import { router } from '@/router';
+import { createGlobalStyle } from 'styled-components';
 import './index.css';
 
 const GlobalStyle = createGlobalStyle`
@@ -71,4 +71,3 @@ root.render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
-
