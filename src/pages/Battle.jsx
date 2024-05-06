@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Nav from '../components/Nav';
 import NavButton from '../components/NavButton';
 import VS from '../components/VS';
+import Chart from '../components/Chart';
 
 export default function Battle() {
   const [isBattle, setIsBattle] = useState(false);
@@ -50,7 +51,7 @@ export default function Battle() {
                 </svg>
               </div>
             </div>
-            <div className='px-[16px] flex flex-col items-center justify-center'>
+            <div className='px-[16px] pb-[86px] flex flex-col items-center justify-center'>
               {/* 나 vs 상대방 */}
               <VS />
               {/* 쿡찌르기 */}
@@ -63,8 +64,8 @@ export default function Battle() {
                 </button>
               </div>
               {/* 현황 */}
-              <div className='mt-[16px] h-[700px] w-full bg-[#28272B] rounded-[30px]'>
-                <div className='px-[24px] py-[32px] flex flex-col gap-[8px]'>
+              <div className='mt-[16px] h-fit w-full bg-[#28272B] rounded-[30px] py-[32px] '>
+                <div className='px-[24px] flex flex-col gap-[8px] pb-[16px]'>
                   <span className='text-[#BEBDC4] text-[16px] font-medium'>
                     누적 디톡스 현황
                   </span>
@@ -78,8 +79,8 @@ export default function Battle() {
                           me
                         </span>
                       </div>
-                      <div className='w-[32px] h-[32px] rounded-full bg-[#BEBDC4] flex justify-center items-center'>
-                        <span className='text-[12px] font-medium text-[#050409]'>
+                      <div className='w-[32px] h-[32px] rounded-full bg-[#6E7487] flex justify-center items-center'>
+                        <span className='text-[12px] font-medium text-[#0F0E14]'>
                           other
                         </span>
                       </div>
@@ -104,6 +105,7 @@ export default function Battle() {
                     </span>
                   </div>
                 </div>
+                <Chart />
               </div>
             </div>
           </div>
