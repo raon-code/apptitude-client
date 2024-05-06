@@ -4,7 +4,7 @@ import { cls } from '../libs/utils';
 export default function VS() {
   const [gameEnd, setGameEnd] = useState(false);
   useEffect(() => {
-    setGameEnd(true);
+    // setGameEnd(true);
   }, []);
   return (
     <div className='flex mt-[24px] w-full gap-[2px] relative'>

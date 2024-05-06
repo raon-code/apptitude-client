@@ -7,13 +7,13 @@ import Chart from '@/components/Chart';
 export default function Battle() {
   const [isBattle, setIsBattle] = useState(false);
   useEffect(() => {
-    // 진행중인 배틀이 없는 경우
+    // 진행중인 배틀이 있는 경우
     // setIsBattle(true);
   }, []);
   return (
     <div>
       <div className='h-full w-full overflow-hidden flex flex-col items-center px-[16px]'>
-        {isBattle ? (
+        {!isBattle ? (
           <>
             <div className='w-full h-[519px] bg-[#D9D9D9] mt-[34px]'></div>
             <NavButton toLink={'/makeBattle'} title={'배틀 만들기'} />

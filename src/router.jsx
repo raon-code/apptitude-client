@@ -7,6 +7,7 @@ import Survey from '@/pages/Survey';
 import MakeBattle from '@/pages/MakeBattle';
 import Battle from '@/pages/Battle';
 import Info from '@/pages/Info';
+import WaitBattle from './pages/WaitBattle';
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ export const router = createBrowserRouter([
       {
         path: 'makeBattle',
         element: <MakeBattle />
+      },
+      {
+        path: 'waitBattle',
+        element: <WaitBattle />
       },
       {
         path: 'info',
