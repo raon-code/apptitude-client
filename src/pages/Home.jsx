@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Modal from '../components/Modal';
-import Nav from '../components/Nav';
+import Modal from '@/components/Modal';
+import Nav from '@/components/Nav';
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);

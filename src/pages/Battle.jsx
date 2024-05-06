@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import Nav from '../components/Nav';
-import NavButton from '../components/NavButton';
-import VS from '../components/VS';
-import Chart from '../components/Chart';
+import Nav from '@/components/Nav';
+import NavButton from '@/components/NavButton';
+import VS from '@/components/VS';
+import Chart from '@/components/Chart';
 
 export default function Battle() {
   const [isBattle, setIsBattle] = useState(false);
