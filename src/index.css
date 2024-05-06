@@ -22,3 +22,9 @@
       -10px 0 10px -3px #333;
   }
 }
+
+@layer base {
+  html {
+    @apply bg-[#050409];
+  }
+}
