@@ -18,42 +18,48 @@ ChartJS.register(
 );
 
 const data = {
-  labels: ['-', '-', '-', '01/01'],
+  labels: ['-', '-', '-', '01/01', '01/02', '01/03', '01/04'],
   datasets: [
     {
+      // barThickness: 22,
       type: 'bar',
       label: 'me',
-      borderColor: [
-        'rgba(4, 195, 87, 0.2)',
-        'rgba(4, 195, 87, 0.2)',
-        'rgba(4, 195, 87, 0.2)',
-        'rgba(4, 195, 87, 1)'
-      ],
-      backgroundColor: [
-        'rgba(4, 195, 87, 0.2)',
-        'rgba(4, 195, 87, 0.2)',
-        'rgba(4, 195, 87, 0.2)',
-        'rgba(4, 195, 87, 1)'
-      ],
+      borderColor: function (context) {
+        if (context.dataIndex === data.labels.length - 1) {
+          return 'rgba(4, 195, 87, 1)';
+        } else {
+          return 'rgba(4, 195, 87, 0.2)';
+        }
+      },
+      backgroundColor: function (context) {
+        if (context.dataIndex === data.labels.length - 1) {
+          return 'rgba(4, 195, 87, 1)';
+        } else {
+          return 'rgba(4, 195, 87, 0.2)';
+        }
+      },
       borderWidth: 2,
-      data: [2, 40, 60, 100]
+      data: [2, 10, 20, 40, 60, 80, 100]
     },
     {
+      // barThickness: 22,
       type: 'bar',
       label: 'other',
-      data: [2, 10, 50, 80],
-      backgroundColor: [
-        'rgba(110, 116, 135, 0.2)',
-        'rgba(110, 116, 135, 0.2)',
-        'rgba(110, 116, 135, 0.2)',
-        'rgba(110, 116, 135, 1)'
-      ],
-      borderColor: [
-        'rgba(110, 116, 135, 0.2)',
-        'rgba(110, 116, 135, 0.2)',
-        'rgba(110, 116, 135, 0.2)',
-        'rgba(110, 116, 135, 1)'
-      ],
+      data: [2, 10, 20, 30, 50, 60, 80],
+      backgroundColor: function (context) {
+        if (context.dataIndex === data.labels.length - 1) {
+          return 'rgba(110, 116, 135, 1)';
+        } else {
+          return 'rgba(110, 116, 135, 0.2)';
+        }
+      },
+      borderColor: function (context) {
+        if (context.dataIndex === data.labels.length - 1) {
+          return 'rgba(110, 116, 135, 1)';
+        } else {
+          return 'rgba(110, 116, 135, 0.2)';
+        }
+      },
       borderWidth: 2
     }
   ]
@@ -81,6 +87,9 @@ const options = {
       grid: {
         drawBorder: true,
         color: 'rgba(166, 166, 166, 0.1)'
+      },
+      afterTickToLabelConversion: function (scaleInstance) {
+        console.log(scaleInstance);
       }
     }
   },
@@ -111,6 +120,8 @@ const options = {
 };
 
 export default function Chart() {
+  const chartWidth = 62 * data.labels.length + 'px';
+  console.log(chartWidth);
   return (
     <div className='relative'>
       <div className='left-[20px] items-center h-[242px] text-[12px] pt-[36px] pb-[25px] justify-between absolute flex flex-col bg-[#28272B] text-[#BEBDC4]'>
