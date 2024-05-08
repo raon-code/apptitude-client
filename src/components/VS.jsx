@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
 import { cls } from '../libs/utils';
+import { useMatch } from 'react-router-dom';
 
 export default function VS() {
   const [gameEnd, setGameEnd] = useState(false);
+  const waitBattleMatch = useMatch('/waitBattle');
   useEffect(() => {
     // setGameEnd(true);
   }, []);
   return (
-    <div className='flex mt-[24px] w-full gap-[2px] relative'>
+    <div
+      className={cls(
+        'flex mt-[24px] w-full gap-[2px] relative',
+        waitBattleMatch ? 'two-part' : ''
+      )}
+    >
       {/* 나 */}
       <div
         className={cls(
