@@ -8,6 +8,7 @@ const Item = styled(motion.div)``;
 export default function Nav() {
   const mainMatch = useMatch('/');
   const battleMatch = useMatch('/battle');
+  const waitBattleMatch = useMatch('/waitBattle');
   const infoMatch = useMatch('/info');
 
   return (
@@ -48,7 +49,7 @@ export default function Nav() {
         to={'/battle'}
         className={cls(
           `pb-[7px] pt-[10px] w-full h-full relative`,
-          battleMatch
+          battleMatch || waitBattleMatch
             ? 'fill-[#04C357] text-[#04C357]'
             : 'fill-[#FEFEFE] opacity-[0.6] text-[#FEFEFE]'
         )}
@@ -75,7 +76,7 @@ export default function Nav() {
           {/* 대결하기? 대결현황? 이름 변경 요망 */}
           <span className='text-[12px]'>대결</span>
         </div>
-        {battleMatch && (
+        {battleMatch || waitBattleMatch && (
           <Item
             className='w-full h-full top-0 absolute flex justify-center items-center px-9'
             layoutId='navigation'
