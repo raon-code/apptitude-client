@@ -40,7 +40,7 @@ export default function WaitBattle() {
         <Title title={'친구 기다리는 중'} />
         <VS />
         {/* 프로그레스바 */}
-        <div className='flex flex-col  mt-[24px] mx-[40px]'>
+        <div className='flex flex-col  mt-[24px] mx-[24px]'>
           <div className='flex justify-between'>
             <span className='text-[#BEBDC4] text-[16px] font-medium'>
               대결방 유효 시간
@@ -102,7 +102,9 @@ export default function WaitBattle() {
                 </defs>
               </svg>
             </div>
-            <span className='text-[#EFEFF6] text-[20px] font-medium mt-[12px]'>대결 계약서</span>
+            <span className='text-[#EFEFF6] text-[20px] font-medium mt-[12px]'>
+              대결 계약서
+            </span>
           </div>
           <Line className='relative'>
             <div className='absolute -top-1 -left-1 h-[9px] w-[9px] rounded-full bg-[#050409]'></div>
@@ -110,22 +112,26 @@ export default function WaitBattle() {
           </Line>
           <div className='flex flex-col mt-[28px] px-[24px]'>
             <div className='flex justify-between text-[16px] font-medium'>
-                <span className='text-[#BEBDC4]'>대결 이름</span>
-                <span className='text-[#FEFEFE]'>더이상 이렇게 살지 말자</span>
+              <span className='text-[#BEBDC4]'>대결 이름</span>
+              <span className='text-[#FEFEFE]'>더이상 이렇게 살지 말자</span>
             </div>
             <div className='flex justify-between text-[16px] font-medium mt-[32px]'>
-                <span className='text-[#BEBDC4]'>대결 기간</span>
-                <span className='text-[#FEFEFE]'>2024.12.30 ~ 2025.1.4</span>
+              <span className='text-[#BEBDC4]'>대결 기간</span>
+              <span className='text-[#FEFEFE]'>2024.12.30 ~ 2025.1.4</span>
             </div>
             <div className='flex justify-between text-[16px] font-medium mt-[32px]'>
-                <span className='text-[#BEBDC4]'>대결 보상</span>
-                <span className='text-[#FEFEFE]'>떡볶이 쏘기</span>
+              <span className='text-[#BEBDC4]'>대결 보상</span>
+              <span className='text-[#FEFEFE]'>떡볶이 쏘기</span>
             </div>
           </div>
         </div>
         <div className='mt-[24px] flex justify-between  text-[22px] font-bold'>
-          <button className='text-[#FEFEFE] bg-[#333333] px-[20px] py-[16px] rounded-[36px]'>대결취소</button>
-          <button className='text-[#050409] bg-[#04C357] px-[18.5px] py-[16px] rounded-[36px]'>카톡으로 초대하기</button>
+          <button className='text-[#FEFEFE] bg-[#333333] px-[20px] py-[16px] rounded-[36px]'>
+            대결취소
+          </button>
+          <button className='text-[#050409] bg-[#04C357] px-[18.5px] py-[16px] rounded-[36px]'>
+            카톡으로 초대하기
+          </button>
         </div>
       </div>
       <Nav />
