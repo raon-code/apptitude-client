@@ -140,7 +140,7 @@ export default function Battle() {
   const [step, setStep] = useState('다음');
   const [confirm, setConfirm] = useState(true);
   const [inputValue, setInputValue] = useState('');
-  const [statusImage, setStatusImage] = useState('../../../status_1:3.svg');
+  const [statusImage, setStatusImage] = useState('../../../status_3-1.svg');
   const [placeholder, setPlaceholder] = useState(placeholders[index]);
   const [selectedTime, setSelectedTime] = useState({ hour: 0, minute: 0 }); // State to store selected time
 
@@ -163,7 +163,7 @@ export default function Battle() {
       console.log(index);
       setStep('확인했습니다!');
     }
-    setStatusImage(`../../../status_${index + 2}:3.svg`);
+    setStatusImage(`../../../status_3-${index + 2}.svg`);
   }
 
   function backClick() {
