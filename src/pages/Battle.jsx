@@ -8,7 +8,7 @@ export default function Battle() {
   const [isBattle, setIsBattle] = useState(false);
   useEffect(() => {
     // 진행중인 배틀이 있는 경우
-    // setIsBattle(true);
+    setIsBattle(true);
   }, []);
   return (
     <div>
