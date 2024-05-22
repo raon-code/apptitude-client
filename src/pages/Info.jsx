@@ -281,6 +281,7 @@ export default function Info() {
           ? victoryList.map((result) => (
               <Link
                 to={`/result/${result.id}`}
+                state={{ type: 'victory' }}
                 className='flex gap-[16px] items-center py-[16px] mt-[12px]'
               >
                 <div>
@@ -391,6 +392,7 @@ export default function Info() {
           ? tieList.map((result) => (
               <Link
                 to={`/result/${result.id}`}
+                state={{ type: 'tie' }}
                 className='flex gap-[16px] items-center py-[16px] mt-[12px]'
               >
                 <div>
@@ -482,6 +484,7 @@ export default function Info() {
           ? defeatList.map((result) => (
               <Link
                 to={`/result/${result.id}`}
+                state={{ type: 'defeat' }}
                 className='flex gap-[16px] items-center py-[16px] mt-[12px]'
               >
                 <div>

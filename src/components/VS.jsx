@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { cls } from '../libs/utils';
 import { useMatch } from 'react-router-dom';
 
-export default function VS() {
-  const [gameEnd, setGameEnd] = useState(false);
+export default function VS({ gameEnd }) {
+  // const [gameEnd, setGameEnd] = useState(false);
   const waitBattleMatch = useMatch('/waitBattle');
   useEffect(() => {
     // setGameEnd(true);

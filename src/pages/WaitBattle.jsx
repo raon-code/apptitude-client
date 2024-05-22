@@ -71,7 +71,7 @@ export default function WaitBattle() {
         </div>
         {/* 대결계약서 */}
         <Contract type={'waitBattle'} />
-        <div className='mt-[24px] flex justify-between  text-[22px] font-bold'>
+        <div className='mt-[24px] flex justify-between text-[22px] leading-[28px] font-bold'>
           <button className='text-[#FEFEFE] bg-[#333333] px-[20px] py-[16px] rounded-[36px]'>
             대결취소
           </button>
