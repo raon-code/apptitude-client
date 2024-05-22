@@ -6,7 +6,7 @@ export default function Button({ clickEvent, step, confirm }) {
       <button
         onClick={clickEvent}
         className={cls(
-          'bg-[#565656] py-[18px] w-full font-bold text-[#050409] text-[22px] rounded-[36px]',
+          'py-[18px] w-full font-bold text-[#050409] text-[22px] rounded-[36px]',
           confirm ? 'bg-[#04C357]' : 'bg-[#565656]'
         )}
       >
