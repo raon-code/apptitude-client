@@ -3,6 +3,7 @@ import BattleResult from '@/components/BattleResult';
 import Button from '@/components/Button';
 import Nav from '@/components/Nav';
 import NavButton from '@/components/NavButton';
+import Push from '@/components/Push';
 import VS from '@/components/VS';
 import { useLocation } from 'react-router-dom';
 
@@ -46,6 +47,7 @@ export default function Result() {
         ) : null}
       </div>
       <Nav />
+      <Push />
     </>
   );
 }

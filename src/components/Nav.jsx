@@ -10,6 +10,7 @@ export default function Nav() {
   const battleMatch = useMatch('/battle');
   const waitBattleMatch = useMatch('/waitBattle');
   const infoMatch = useMatch('/info');
+  const resultMatch = useMatch('/result/:id');
 
   return (
     <nav className='flex justify-between absolute bottom-0 w-full bg-[#33333370] rounded-t-[20px] backdrop-blur-md'>
@@ -89,7 +90,7 @@ export default function Nav() {
         to={'/info'}
         className={cls(
           `pb-[7px] pt-[10px] w-full h-full relative`,
-          infoMatch
+          infoMatch || resultMatch
             ? 'fill-[#04C357] text-[#04C357]'
             : 'fill-[#FEFEFE] opacity-[0.6] text-[#FEFEFE]'
         )}
@@ -110,7 +111,7 @@ export default function Nav() {
           </svg>
           <span className='text-[12px]'>내 정보</span>
         </div>
-        {infoMatch && (
+        {(infoMatch || resultMatch) && (
           <Item
             className='w-full h-full top-0 absolute flex justify-center items-center px-9'
             layoutId='navigation'
