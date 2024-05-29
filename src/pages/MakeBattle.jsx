@@ -243,8 +243,8 @@ export default function Battle() {
             </button>
           </RandomButton>
         )}
+        <Button clickEvent={onClick} step={step} confirm={confirm} />
       </FieldWrap>
-      <Button clickEvent={onClick} step={step} confirm={confirm} />
     </div>
   );
 }
