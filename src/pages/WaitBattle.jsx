@@ -4,25 +4,14 @@ import Title from '@/components/Title';
 import VS from '@/components/VS';
 import { cls } from '@/libs/utils';
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
-
-const Line = styled.div`
-  background-image: linear-gradient(
-    to right,
-    #050409 33%,
-    rgba(255, 255, 255, 0) 0%
-  );
-  background-position: bottom;
-  background-size: 10px 2px;
-  background-repeat: repeat-x;
-  padding-bottom: 1.5px;
-  width: 100%;
-`;
 
 export default function WaitBattle() {
   const [isWorning, setIsWorning] = useState(false);
   const [progressWidth, setProgressWidth] = useState(0);
-  let time = 16;
+  const [time, setTime] = useState(30);
+  useEffect(() => {
+    setTime(12);
+  }, []);
   useEffect(() => {
     if (time < 15) {
       setIsWorning(true);
@@ -31,8 +20,6 @@ export default function WaitBattle() {
     }
 
     setProgressWidth(Math.floor((time / 30) * 100));
-    console.log(Math.floor((time / 30) * 100));
-    console.log((time / 30) * 100);
   }, [time]);
 
   return (
@@ -63,9 +50,10 @@ export default function WaitBattle() {
           <div className='w-full bg-[#28272B] rounded-[16px] h-[8px] mt-[8px]'>
             <div
               className={cls(
-                `h-[8px] rounded-[16px] w-[53%]`,
+                `h-[8px] rounded-[16px]`,
                 isWorning ? 'bg-[#F2AE30]' : 'bg-[#04C357]'
               )}
+              style={{ width: `${progressWidth}%` }}
             ></div>
           </div>
         </div>
