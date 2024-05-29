@@ -1,9 +1,9 @@
-export default function CenterModal({ modalType }) {
-  console.log(modalType);
+export default function CenterModal({ isDeclareSurrender, closeCenterModal }) {
   return (
+    // CentalModal
     <div
       className={
-        modalType === 'declareSurrender'
+        isDeclareSurrender
           ? 'w-screen h-screen fixed flex flex-col items-center'
           : 'hidden'
       }
@@ -18,7 +18,10 @@ export default function CenterModal({ modalType }) {
             <div className='font-medium text-[16px] text-[#BEBDC4] leading-[22px] bg-[#050409] px-[10px] py-[8px] rounded-[30px]'>
               네, 포기할래요
             </div>
-            <div className='text-[#0F0E14] font-medium text-[16px] leading-[22px] bg-[#04C357] px-[10px] py-[8px] rounded-[30px]'>
+            <div
+              onClick={closeCenterModal}
+              className='text-[#0F0E14] font-medium text-[16px] leading-[22px] bg-[#04C357] px-[10px] py-[8px] rounded-[30px]'
+            >
               아뇨, 계속할래요
             </div>
           </div>

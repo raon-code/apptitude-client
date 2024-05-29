@@ -4,18 +4,20 @@ import Contract from './Contract';
 import Button from './Button';
 
 export default function BattleMore({ isOpen, closeMore }) {
-  const [centerModalType, setCenterModalType] = useState('');
   const [isContractOpen, setIsContractOpen] = useState(false);
+  const [isDeclareSurrender, setIsDeclareSurrender] = useState(false);
   const viewContract = () => {
     setIsContractOpen(true);
     console.log('click');
   };
-  const declareSurrender = () => {
-    setCenterModalType('declareSurrender');
-    console.log('click');
-  };
   const closeContract = () => {
     setIsContractOpen(false);
+  };
+  const openCenterModal = () => {
+    setIsDeclareSurrender(true);
+  };
+  const closeCenterModal = () => {
+    setIsDeclareSurrender(false);
   };
   return (
     <div>
@@ -23,7 +25,7 @@ export default function BattleMore({ isOpen, closeMore }) {
         <div className='bg-[#000000] opacity-[80%] w-screen h-screen '></div>
         <div
           className={
-            centerModalType === 'declareSurrender' || isContractOpen
+            isDeclareSurrender || isContractOpen
               ? 'hidden'
               : 'w-screen fixed bottom-0 px-[16px] pb-[32px]'
           }
@@ -36,7 +38,7 @@ export default function BattleMore({ isOpen, closeMore }) {
               계약서보기
             </div>
             <div
-              onClick={declareSurrender}
+              onClick={openCenterModal}
               className='mt-[1px] py-[16px] bg-[#28272B] text-[#BEBDC4] leading-[28px] w-full flex justify-center items-center rounded-b-[20px] font-bold text-[22px]'
             >
               항복선언하기
@@ -63,7 +65,10 @@ export default function BattleMore({ isOpen, closeMore }) {
             <Button step={'닫기'} confirm={true} clickEvent={closeContract} />
           </>
         )}
-        <CenterModal modalType={centerModalType} />
+        <CenterModal
+          isDeclareSurrender={isDeclareSurrender}
+          closeCenterModal={closeCenterModal}
+        />
       </div>
     </div>
   );
