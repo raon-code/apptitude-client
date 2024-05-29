@@ -1,6 +1,17 @@
-export default function Push() {
+import { motion } from 'framer-motion';
+import styled from 'styled-components';
+
+const PushDiv = styled(motion.div)``;
+
+export default function Push({ isPush }) {
+  console.log(isPush);
   return (
-    <div className='fixed w-full px-[16px] bottom-[40px]'>
+    <PushDiv
+      initial={{ y: 50 }}
+      animate={{ y: isPush ? 0 : 50 }}
+      transition={{ duration: 0.5 }}
+      className={isPush ? 'fixed w-full px-[16px] bottom-[40px]' : 'hidden'}
+    >
       <div className='bg-[#6E7487] w-full flex items-center justify-center py-[22.5px] rounded-[16px]'>
         <div>
           <svg
@@ -32,6 +43,6 @@ export default function Push() {
           친구에게 대결보상을 요청했어요!
         </div>
       </div>
-    </div>
+    </PushDiv>
   );
 }
