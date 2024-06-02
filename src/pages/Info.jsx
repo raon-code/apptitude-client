@@ -12,7 +12,7 @@ let data = {
   victory: [
     {
       id: 1,
-      name: '박코끼리',
+      name: '김코끼리',
       gift: false
     },
     {
