@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Nav from '@/components/Nav';
 import NavButton from '@/components/NavButton';
 import VS from '@/components/VS';
@@ -7,6 +7,7 @@ import BattleMore from '@/components/BattleMore';
 import CenterModal from '@/components/CenterModal';
 
 export default function Battle() {
+  const containerRef = useRef(null);
   const [isBattle, setIsBattle] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   // const [isContractOpen, setIsContractOpen] = useState(false);
@@ -77,7 +78,7 @@ export default function Battle() {
                   </button>
                 </div>
                 {/* 현황 */}
-                <div className='mt-[16px] h-fit w-full bg-[#28272B] rounded-[30px] py-[32px] '>
+                <div className='overflow-hidden mt-[16px] h-[392px] w-full bg-[#28272B] rounded-[30px] py-[32px] relative'>
                   <div className='px-[24px] flex flex-col gap-[8px] pb-[16px]'>
                     <span className='text-[#BEBDC4] text-[16px] font-medium'>
                       누적 디톡스 현황
@@ -118,7 +119,7 @@ export default function Battle() {
                       </span>
                     </div>
                   </div>
-                  <Chart />
+                  <Chart containerRef={containerRef} />
                 </div>
               </div>
             </div>

@@ -8,6 +8,9 @@ import {
   BarElement
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import Draggable from 'react-draggable';
+import { useEffect, useRef, useState } from 'react';
+import { cls } from '@/libs/utils';
 
 ChartJS.register(
   CategoryScale,
@@ -18,7 +21,7 @@ ChartJS.register(
 );
 
 const data = {
-  labels: ['-', '-', '-', '01/01', '01/02', '01/03', '01/04'],
+  labels: ['-', '-', '01/01', '01/02', '01/03', '01/04'],
   datasets: [
     {
       // barThickness: 22,
@@ -39,13 +42,12 @@ const data = {
         }
       },
       borderWidth: 2,
-      data: [2, 10, 20, 40, 60, 80, 100]
+      data: [40, 60, 80, 100]
     },
     {
-      // barThickness: 22,
       type: 'bar',
       label: 'other',
-      data: [2, 10, 20, 30, 50, 60, 80],
+      data: [30, 50, 60, 80],
       backgroundColor: function (context) {
         if (context.dataIndex === data.labels.length - 1) {
           return 'rgba(110, 116, 135, 1)';
@@ -87,9 +89,6 @@ const options = {
       grid: {
         drawBorder: true,
         color: 'rgba(166, 166, 166, 0.1)'
-      },
-      afterTickToLabelConversion: function (scaleInstance) {
-        console.log(scaleInstance);
       }
     }
   },
@@ -119,27 +118,64 @@ const options = {
   }
 };
 
-export default function Chart() {
-  const chartWidth = 62 * data.labels.length + 'px';
-  console.log(chartWidth);
+export default function Chart({ containerRef }) {
+  const chartRef = useRef(null);
+  const [bounds, setBounds] = useState({
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0
+  });
+
+  useEffect(() => {
+    const updateBounds = () => {
+      if (containerRef.current && chartRef.current) {
+        const containerWidth = containerRef.current.offsetWidth;
+        const chartWidth = chartRef.current.offsetWidth;
+        setBounds({
+          left: -(chartWidth - containerWidth),
+          right: 0,
+          top: 0,
+          bottom: 0
+        });
+      }
+    };
+
+    // Initial bounds calculation
+    updateBounds();
+
+    // Recalculate bounds on window resize
+    window.addEventListener('resize', updateBounds);
+    return () => window.removeEventListener('resize', updateBounds);
+  }, []);
+
+  console.log(data.labels.length);
   return (
-    <div className='relative'>
-      <div className='left-[20px] items-center h-[242px] text-[12px] pt-[36px] pb-[25px] justify-between absolute flex flex-col bg-[#28272B] text-[#BEBDC4]'>
+    <div ref={containerRef} className=''>
+      <Draggable axis='x' bounds={bounds}>
+        <div
+          ref={chartRef}
+          className={cls(
+            'px-[16px] absolute bottom-[26px]',
+            data.labels.length < 5 && 'w-full'
+          )}
+        >
+          <Line
+            className=''
+            data={data}
+            options={options}
+            style={{ height: '242px' }}
+            plugins={[ChartDataLabels]}
+          />
+        </div>
+      </Draggable>
+      <div className='pl-[20px] left-[0px] items-center h-[242px] text-[12px] pt-[36px] pb-[25px] justify-between absolute flex flex-col bg-[#28272B] text-[#BEBDC4]'>
         <span className='leading-[16px]'>100</span>
         <span className='leading-[16px]'>80</span>
         <span className='leading-[16px]'>60</span>
         <span className='leading-[16px]'>40</span>
         <span className='leading-[16px]'>20</span>
         <span className='leading-[16px]'>0</span>
-      </div>
-      <div className='px-[16px]'>
-        <Line
-          className=''
-          data={data}
-          options={options}
-          style={{ height: '242px' }}
-          plugins={[ChartDataLabels]}
-        />
       </div>
     </div>
   );
