@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^7.1.0",
+    "axios": "^1.7.2",
     "chart.js": "^4.4.2",
     "chartjs-plugin-datalabels": "^2.2.0",
     "cra-template": "1.2.0",
