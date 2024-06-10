@@ -8,10 +8,12 @@ const Item = styled(motion.div)``;
 export default function Nav() {
   const mainMatch = useMatch('/');
   const battleMatch = useMatch('/battle');
+  const waitBattleMatch = useMatch('/waitBattle');
   const infoMatch = useMatch('/info');
+  const resultMatch = useMatch('/result/:id');
 
   return (
-    <nav className='flex justify-between absolute bottom-0 w-full bg-[#333333] rounded-t-[20px]'>
+    <nav className='flex justify-between absolute bottom-0 w-full bg-[#33333370] rounded-t-[20px] backdrop-blur-md'>
       <Link
         to={'/'}
         className={cls(
@@ -48,7 +50,7 @@ export default function Nav() {
         to={'/battle'}
         className={cls(
           `pb-[7px] pt-[10px] w-full h-full relative`,
-          battleMatch
+          battleMatch || waitBattleMatch
             ? 'fill-[#04C357] text-[#04C357]'
             : 'fill-[#FEFEFE] opacity-[0.6] text-[#FEFEFE]'
         )}
@@ -62,19 +64,20 @@ export default function Nav() {
             xmlns='http://www.w3.org/2000/svg'
           >
             <path
-              fill-rule='evenodd'
-              clip-rule='evenodd'
+              fillRule='evenodd'
+              clipRule='evenodd'
               d='M5.52711 15.563C5.8313 15.9561 5.75921 16.5214 5.3661 16.8255C4.65505 17.3757 4.19995 18.2345 4.19995 19.2C4.19995 19.3883 4.21719 19.5721 4.25007 19.7499C4.42791 19.7828 4.61163 19.8 4.79995 19.8C5.76544 19.8 6.62422 19.3449 7.17443 18.6339C7.47862 18.2408 8.04389 18.1687 8.437 18.4729C8.83011 18.777 8.9022 19.3423 8.59801 19.7354C7.72159 20.868 6.34603 21.6 4.79995 21.6C4.24799 21.6 3.71596 21.5065 3.22003 21.3337C2.96061 21.2433 2.75669 21.0393 2.66629 20.7799C2.49348 20.284 2.39995 19.752 2.39995 19.2C2.39995 17.6539 3.13192 16.2784 4.26455 15.402C4.65766 15.0978 5.22293 15.1699 5.52711 15.563Z'
             />
             <path
               fillRule='evenodd'
-              clip-rule='evenodd'
+              clipRule='evenodd'
               d='M6.90278 14.4C7.68852 15.4052 8.5948 16.3114 9.59995 17.0972V21.9C9.59995 22.3971 10.0029 22.8 10.5 22.8C13.8137 22.8 16.5 20.1137 16.5 16.8C16.5 16.2117 16.415 15.6421 16.2565 15.1034C20.216 12.2756 22.7999 7.63982 22.7999 2.40001C22.7999 2.29482 22.7989 2.18985 22.7968 2.08512C22.7873 1.60203 22.3979 1.21271 21.9148 1.20313C21.8101 1.20106 21.7052 1.20001 21.5999 1.20001C16.3601 1.20001 11.7243 3.78398 8.8966 7.74351C8.3579 7.58495 7.78828 7.50001 7.19995 7.50001C3.88624 7.50001 1.19995 10.1863 1.19995 13.5C1.19995 13.9971 1.60289 14.4 2.09995 14.4H6.90278ZM15.6 10.8C16.9254 10.8 18 9.7255 18 8.40001C18 7.07453 16.9254 6.00001 15.6 6.00001C14.2745 6.00001 13.2 7.07453 13.2 8.40001C13.2 9.7255 14.2745 10.8 15.6 10.8Z'
             />
           </svg>
-          <span className='text-[12px]'>대결하기</span>
+          {/* 대결하기? 대결현황? 이름 변경 요망 */}
+          <span className='text-[12px]'>대결</span>
         </div>
-        {battleMatch && (
+        {(battleMatch || waitBattleMatch) && (
           <Item
             className='w-full h-full top-0 absolute flex justify-center items-center px-9'
             layoutId='navigation'
@@ -87,7 +90,7 @@ export default function Nav() {
         to={'/info'}
         className={cls(
           `pb-[7px] pt-[10px] w-full h-full relative`,
-          infoMatch
+          infoMatch || resultMatch
             ? 'fill-[#04C357] text-[#04C357]'
             : 'fill-[#FEFEFE] opacity-[0.6] text-[#FEFEFE]'
         )}
@@ -102,13 +105,13 @@ export default function Nav() {
           >
             <path
               fillRule='evenodd'
-              clip-rule='evenodd'
+              clipRule='evenodd'
               d='M18.6854 19.0971C20.5721 17.3191 21.75 14.7971 21.75 12C21.75 6.61522 17.3848 2.25 12 2.25C6.61522 2.25 2.25 6.61522 2.25 12C2.25 14.7971 3.42785 17.3191 5.31463 19.0971C7.06012 20.7419 9.41234 21.75 12 21.75C14.5877 21.75 16.9399 20.7419 18.6854 19.0971ZM6.14512 17.8123C7.51961 16.0978 9.63161 15 12 15C14.3684 15 16.4804 16.0978 17.8549 17.8123C16.3603 19.3178 14.289 20.25 12 20.25C9.711 20.25 7.63973 19.3178 6.14512 17.8123ZM15.75 9C15.75 11.0711 14.0711 12.75 12 12.75C9.92893 12.75 8.25 11.0711 8.25 9C8.25 6.92893 9.92893 5.25 12 5.25C14.0711 5.25 15.75 6.92893 15.75 9Z'
             />
           </svg>
           <span className='text-[12px]'>내 정보</span>
         </div>
-        {infoMatch && (
+        {(infoMatch || resultMatch) && (
           <Item
             className='w-full h-full top-0 absolute flex justify-center items-center px-9'
             layoutId='navigation'

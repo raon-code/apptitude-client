@@ -5,10 +5,14 @@
   "dependencies": {
     "@craco/craco": "^7.1.0",
     "axios": "^1.7.2",
+    "chart.js": "^4.4.2",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "cra-template": "1.2.0",
     "framer-motion": "^11.0.23",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.6",
     "react-router-dom": "^6.22.3",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.8"
