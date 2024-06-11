@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Button from '../components/Button';
 import Modal from '../components/Modal';
 import Nav from '../components/Nav';
@@ -8,7 +8,7 @@ import Timer from '../components/Timer';
 const MainWrap = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: #050409;
+  background-color: ${(props) => props.backgroundColor || '#050409'};
   padding: 0 16px 0;
   border: none;
   display: flex;
@@ -43,43 +43,56 @@ const BattlePeriod = styled.div`
 
 const MainIcon = styled.div`
   width: 95.55vw;
-  height: 45.55vw;
+  height: 164px;
   background-image: url('../../../main_icon_frame.svg');
+  background-repeat: no-repeat;
+  background-position: center 0;
   margin-top: 19px;
-
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  gap: 10px;
+  position: relative;
+  padding-bottom: 12.5px;
+  span {
+    background-repeat: no-repeat;
+    background-position: center bottom 0;
+    display: inline-block;
+    width: 76px;
+    height: 76px;
+  }
   span:nth-child(1) {
     background-image: url('../../../icon_red.svg');
-    display: inline-block;
-    width: 21.1vw;
-    height: 21.1vw;
+  }
+  span:nth-child(2) {
+    background-image: url('../../../icon_yellow.svg');
+  }
+  span:nth-child(3) {
+    background-image: url('../../../icon_green.svg');
   }
 `;
 
-export default function Main() {
+const Main = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [status, setStatus] = useState('디톡스 시작하기!');
-  const [confirm, setConfirm] = useState(true);
-  const [period, setPeriod] = useState('대결 시작 전');
+  const [isDetoxStarted, setIsDetoxStarted] = useState(false);
+  const [backgroundColor, setBackgroundColor] = useState('#050409');
 
-  function onClick() {
-    // if (titles.length === index + 1) {
-    //   console.log('끝');
-    //   return;
-    // }
-    // setIndex((prevIndex) => prevIndex + 1);
-    // setTitle(titles[index + 1]);
-    // setPlaceholder(placeholders[index + 1]);
-    // if (index === 2) {
-    // }
-  }
+  const handleButtonClick = () => {
+    setIsDetoxStarted((prev) => !prev);
+    setBackgroundColor(isDetoxStarted ? '#050409' : '#008000');
+  };
 
   return (
     <div>
-      <MainWrap>
+      <MainWrap style={{ backgroundColor: backgroundColor }}>
         <Container>
-          <BattlePeriod>{period}</BattlePeriod>
-          <Button clickEvent={onClick} confirm={confirm} step={status} />
-          <Timer />
+          <BattlePeriod>대결 시작 전</BattlePeriod>
+          <Button
+            clickEvent={handleButtonClick}
+            step={isDetoxStarted ? '디톡스 그만하기' : '디톡스 시작하기!'}
+            confirm={isDetoxStarted}
+          />
+          <Timer isDetoxStarted={isDetoxStarted} />
           <MainIcon>
             <span></span>
             <span></span>
@@ -87,9 +100,10 @@ export default function Main() {
           </MainIcon>
         </Container>
       </MainWrap>
-
       <Nav />
-      {modalOpen ? <Modal /> : null}
+      {modalOpen && <Modal />}
     </div>
   );
-}
+};
+
+export default Main;

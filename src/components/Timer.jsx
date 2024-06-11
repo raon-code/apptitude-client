@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
-// 스타일 정의
 const TimerContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,16 +31,29 @@ const TimeDisplay = styled.h1`
   letter-spacing: -0.272px;
 `;
 
-const Timer = () => {
+const Timer = ({ isDetoxStarted }) => {
   const [seconds, setSeconds] = useState(0);
+  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setSeconds((prevSeconds) => prevSeconds + 1);
-    }, 1000);
+    let interval = null;
+
+    if (isDetoxStarted && !isActive) {
+      setIsActive(true);
+    } else if (!isDetoxStarted && isActive) {
+      setIsActive(false);
+    }
+
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds((prevSeconds) => prevSeconds + 1);
+      }, 1000);
+    } else if (!isActive && seconds !== 0) {
+      clearInterval(interval);
+    }
 
     return () => clearInterval(interval);
-  }, []);
+  }, [isActive, seconds, isDetoxStarted]);
 
   const formatTime = (totalSeconds) => {
     const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
