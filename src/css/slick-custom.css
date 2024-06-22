@@ -1,4 +1,3 @@
-/* slick-custom.css */
 .slick-custom {
   display: flex !important;
   justify-content: center;
@@ -28,12 +27,12 @@
   width: 8px;
   height: 8px;
   border-radius: 20px;
-  background-color: #ffffff; /* Default dot color */
+  background-color: #28272b;
 }
 
 .slick-custom li.slick-active button::before {
   width: 20px;
   height: 8px;
   border-radius: 20px;
-  background-color: #04c357; /* Active dot color */
+  background-color: #04c357;
 }
