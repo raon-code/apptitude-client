@@ -2,7 +2,7 @@ export default function Back({ title, backClick }) {
   return (
     <div>
       <div onClick={backClick}>
-        <button className='absolute top-[14px] left-[16px] text-[#FEFEFE]'>
+        <button className='absolute top-[20px] left-[16px] text-[#FEFEFE]'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             viewBox='0 0 24 24'
