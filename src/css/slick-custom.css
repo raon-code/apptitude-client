@@ -1,0 +1,39 @@
+/* slick-custom.css */
+.slick-custom {
+  display: flex !important;
+  justify-content: center;
+  margin-top: 31px;
+}
+
+.slick-custom li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px;
+}
+
+.slick-custom li button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  color: transparent;
+  outline: none;
+}
+
+.slick-custom li button::before {
+  content: '';
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 20px;
+  background-color: #ffffff; /* Default dot color */
+}
+
+.slick-custom li.slick-active button::before {
+  width: 20px;
+  height: 8px;
+  border-radius: 20px;
+  background-color: #04c357; /* Active dot color */
+}
