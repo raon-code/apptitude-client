@@ -6,10 +6,13 @@ import Back from '@/components/Back';
 import profileIcon from '../assets/Profile.png';
 import cameraIcon from '../assets/cameraIcon.png';
 
-export default function Profile() {
-  const [nickname, setNickname] = useState('');
+const INITIAL_NICKNAME = '';
+const PROFILE_IMAGE_DEFAULT = profileIcon;
+
+const Profile = () => {
+  const [nickname, setNickname] = useState(INITIAL_NICKNAME);
   const [confirm, setConfirm] = useState(false);
-  const [profileImage, setProfileImage] = useState(profileIcon);
+  const [profileImage, setProfileImage] = useState(PROFILE_IMAGE_DEFAULT);
   const [src, setSrc] = useState(null);
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -17,8 +20,9 @@ export default function Profile() {
   const navigate = useNavigate();
 
   const handleNicknameChange = (e) => {
-    setNickname(e.target.value);
-    setConfirm(e.target.value.length > 0);
+    const value = e.target.value;
+    setNickname(value);
+    setConfirm(value.length > 0);
   };
 
   const handleNextClick = () => {
@@ -42,6 +46,51 @@ export default function Profile() {
     setCroppedArea(croppedAreaPixels);
   }, []);
 
+  const handleCropSave = async () => {
+    if (!src || !croppedArea) return;
+
+    try {
+      const croppedImageUrl = await getCroppedImg(src, croppedArea);
+      setProfileImage(croppedImageUrl);
+      setSrc(null);
+    } catch (error) {
+      console.error('Error cropping image:', error);
+    }
+  };
+
+  const getCroppedImg = async (imageSrc, crop) => {
+    const image = await createImage(imageSrc);
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+    canvas.width = crop.width;
+    canvas.height = crop.height;
+
+    ctx.drawImage(
+      image,
+      crop.x * scaleX,
+      crop.y * scaleY,
+      crop.width * scaleX,
+      crop.height * scaleY,
+      0,
+      0,
+      crop.width,
+      crop.height
+    );
+
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          reject(new Error('Failed to create blob after cropping'));
+          return;
+        }
+        resolve(URL.createObjectURL(blob));
+      }, 'image/jpeg');
+    });
+  };
+
   const createImage = (url) =>
     new Promise((resolve, reject) => {
       const image = new Image();
@@ -50,39 +99,6 @@ export default function Profile() {
       image.setAttribute('crossOrigin', 'anonymous');
       image.src = url;
     });
-
-  const getCroppedImg = async (imageSrc, crop) => {
-    const image = await createImage(imageSrc);
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    canvas.width = crop.width;
-    canvas.height = crop.height;
-
-    ctx.drawImage(
-      image,
-      crop.x,
-      crop.y,
-      crop.width,
-      crop.height,
-      0,
-      0,
-      crop.width,
-      crop.height
-    );
-
-    return new Promise((resolve) => {
-      canvas.toBlob((blob) => {
-        resolve(URL.createObjectURL(blob));
-      }, 'image/jpeg');
-    });
-  };
-
-  const handleCropSave = async () => {
-    const croppedImageUrl = await getCroppedImg(src, croppedArea);
-    setProfileImage(croppedImageUrl);
-    setSrc(null);
-  };
 
   return (
     <div className='flex flex-col items-center h-screen bg-black text-white'>
@@ -99,6 +115,7 @@ export default function Profile() {
       <div className='mt-8 mb-8 text-white text-xl font-weight:500'>
         프로필을 작성해주세요!
       </div>
+
       <div className='mt-8 mb-8 relative'>
         <div className='w-32 h-32 rounded-full flex items-center justify-center'>
           <img
@@ -107,18 +124,7 @@ export default function Profile() {
             className='w-32 h-32 rounded-full'
           />
         </div>
-        <div className='absolute bottom-0 right-0'>
-          <label htmlFor='imageUpload' className='cursor-pointer'>
-            <img src={cameraIcon} alt='Camera Icon' />
-          </label>
-          <input
-            id='imageUpload'
-            type='file'
-            accept='image/*'
-            onChange={handleImageChange}
-            className='hidden'
-          />
-        </div>
+        <ProfileImageUpload handleImageChange={handleImageChange} />
       </div>
 
       {src && (
@@ -164,4 +170,23 @@ export default function Profile() {
       <Button clickEvent={handleNextClick} step='다음' confirm={confirm} />
     </div>
   );
-}
+};
+
+const ProfileImageUpload = ({ handleImageChange }) => {
+  return (
+    <div className='absolute bottom-0 right-0'>
+      <label htmlFor='imageUpload' className='cursor-pointer'>
+        <img src={cameraIcon} alt='Camera Icon' />
+      </label>
+      <input
+        id='imageUpload'
+        type='file'
+        accept='image/*'
+        onChange={handleImageChange}
+        className='hidden'
+      />
+    </div>
+  );
+};
+
+export default Profile;
