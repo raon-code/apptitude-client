@@ -95,11 +95,22 @@ export default function CategorySelection() {
       <div className='flex justify-between items-center px-4 py-2 w-full'>
         <Back backClick={() => navigate('/GenderSelection')} />
         <h2 className='ml-7 mt-2 mb-2 text-xl font-bold'>회원가입</h2>
-        <div className='relative w-6 h-6'>
-          <div className='absolute inset-0 flex items-center justify-center border-r-2 border-green-500 rounded-full'>
-            <span className='text-sm text-white'>3</span>
-          </div>
-        </div>
+        <svg width='40' height='40'>
+          <circle
+            cx='20'
+            cy='20'
+            r='12'
+            stroke='green'
+            strokeWidth='2'
+            fill='#28272B'
+            strokeDasharray='56.52'
+            strokeDashoffset='0'
+            transform='rotate(-90 20 20)'
+          />
+          <text x='16.2' y='24' fontSize='13' fill='white'>
+            3
+          </text>
+        </svg>
       </div>
 
       <h1 className='mt-6 mb-4 text-lg'>소속을 알려주세요</h1>
