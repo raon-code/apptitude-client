@@ -12,6 +12,7 @@ import Result from './pages/Result';
 import GenderSelection from './pages/GenderSelection';
 import Profile from './pages/Profile';
 import CategorySelection from './pages/CategorySelection';
+import AgeSelection from './pages/AgeSelection';
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +66,10 @@ export const router = createBrowserRouter([
       {
         path: 'CategorySelection',
         element: <CategorySelection />
+      },
+      {
+        path: 'AgeSelection',
+        element: <AgeSelection />
       }
     ]
   }

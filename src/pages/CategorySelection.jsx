@@ -86,6 +86,7 @@ export default function CategorySelection() {
 
   const handleNextClick = () => {
     if (selectedCategory) {
+      navigate('/AgeSelection');
     }
   };
 
