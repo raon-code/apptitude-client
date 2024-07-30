@@ -38,7 +38,7 @@ jobs:
 
     - name: Delete old files
       run: |
-        aws s3 rm ${{ secrets.APP_S3_PATH }} --recursive
+        aws s3 rm ${{ secrets.APP_S3_PATH }}/ --recursive
 
     - name: Upload to S3
       run: |
