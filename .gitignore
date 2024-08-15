@@ -2,6 +2,7 @@
 /node_modules/
 
 # 배포/빌드 폴더 #
+/build/
 /android/app/build/
 /ios/build/
 /ios/Pods/

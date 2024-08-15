@@ -1,14 +1,12 @@
-/**
- * apiService.js
- */
-const apiClient = require('@/server/config/api');
+import apiClient from '@/server/config/api';
 
 /**
+ * GET
  *
  * @param {*} endpoint
  * @returns
  */
-async function getData(endpoint) {
+export async function getData(endpoint) {
   try {
     const response = await apiClient.get(endpoint);
     return response.data;
@@ -19,12 +17,13 @@ async function getData(endpoint) {
 }
 
 /**
+ * POST
  *
  * @param {*} endpoint
  * @param {*} data
  * @returns
  */
-async function postData(endpoint, data) {
+export async function postData(endpoint, data) {
   try {
     const response = await apiClient.post(endpoint, data);
     return response.data;
@@ -35,12 +34,13 @@ async function postData(endpoint, data) {
 }
 
 /**
+ * PUT
  *
  * @param {*} endpoint
  * @param {*} data
  * @returns
  */
-async function putData(endpoint, data) {
+export async function putData(endpoint, data) {
   try {
     const response = await apiClient.put(endpoint, data);
     return response.data;
@@ -51,11 +51,12 @@ async function putData(endpoint, data) {
 }
 
 /**
+ * DELETE
  *
  * @param {*} endpoint
  * @returns
  */
-async function deleteData(endpoint) {
+export async function deleteData(endpoint) {
   try {
     const response = await apiClient.delete(endpoint);
     return response.data;
@@ -64,10 +65,3 @@ async function deleteData(endpoint) {
     return null;
   }
 }
-
-module.exports = {
-  getData,
-  postData,
-  putData,
-  deleteData
-};

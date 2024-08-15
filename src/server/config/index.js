@@ -2,12 +2,7 @@
  * index.js
  *  실행 환경변수 관리
  */
-const dotenv = require('dotenv');
-
-const { SERVER_DEFAULT } = require('./const');
-
-// .env 파일을 읽고 process.env에 세팅합니다.
-dotenv.config();
+import { SERVER_DEFAULT } from './const';
 
 const config = {
   // 실행 환경
@@ -19,4 +14,4 @@ const config = {
       : `${SERVER_DEFAULT.URL}:${SERVER_DEFAULT.PORT}`
 };
 
-module.exports = config;
+export default config;

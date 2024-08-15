@@ -1,8 +1,6 @@
-const serverConfig = require('@/server/config');
-
-const axios = require('axios');
-
-const constConfig = require('@/server/config/const');
+import axios from 'axios';
+import serverConfig from '@/server/config';
+import constConfig from '@/server/config/const';
 
 const apiClient = axios.create({
   baseURL: serverConfig.serverUrl,
@@ -45,4 +43,4 @@ apiClient.interceptors.response.use(
   }
 );
 
-module.exports = apiClient;
+export default apiClient;
