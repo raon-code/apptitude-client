@@ -4,7 +4,6 @@ import NavButton from '@/components/NavButton';
 import VS from '@/components/VS';
 import Chart from '@/components/Chart';
 import BattleMore from '@/components/BattleMore';
-import CenterModal from '@/components/CenterModal';
 
 export default function Battle() {
   const containerRef = useRef(null);
