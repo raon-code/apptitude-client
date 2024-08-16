@@ -22,6 +22,8 @@
     "start:dev": "NODE_ENV=dev craco start",
     "start:prod": "NODE_ENV=prod craco start",
     "build": "craco build",
+    "build:dev": "NODE_ENV=dev craco build",
+    "build:prod": "NODE_ENV=prod craco build",
     "test": "craco test",
     "eject": "craco eject"
   },
