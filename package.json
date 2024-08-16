@@ -19,11 +19,8 @@
   },
   "scripts": {
     "start": "NODE_ENV=test craco start",
-    "start:dev": "NODE_ENV=development craco start",
-    "start:prod": "NODE_ENV=production craco start",
-    "build": "NODE_ENV=test craco build",
-    "build:dev": "NODE_ENV=development craco build",
-    "build:prod": "NODE_ENV=production craco build",
+    "start:prod": "craco start",
+    "build": "craco build",
     "test": "craco test",
     "eject": "craco eject"
   },

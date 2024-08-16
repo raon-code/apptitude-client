@@ -7,7 +7,6 @@ import { LOCAL } from './const';
  *   거의 변경되지 않는 값 모음
  */
 const _LOCAL = 'test';
-const _DEV = 'development';
 const _PROD = 'production';
 
 module.exports = {
@@ -24,6 +23,5 @@ module.exports = {
   API_BASE_PATH: '', // API 기본 경로
 
   LOCAL: _LOCAL, // 로컬
-  DEV: _DEV, // 개발
   PROD: _PROD // 운영
 };
