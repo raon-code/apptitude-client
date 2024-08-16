@@ -5,6 +5,7 @@ import VS from '@/components/VS';
 import Chart from '@/components/Chart';
 import BattleMore from '@/components/BattleMore';
 import CenterModal from '@/components/CenterModal';
+import config from '@/server/config';
 
 export default function Battle() {
   const containerRef = useRef(null);
@@ -19,8 +20,6 @@ export default function Battle() {
     // 진행중인 배틀이 있는 경우
     setIsBattle(true);
   }, []);
-
-  alert(process.env.NODE_ENV);
 
   return (
     <div className=''>
