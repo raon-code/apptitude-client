@@ -20,6 +20,8 @@ export default function Battle() {
     setIsBattle(true);
   }, []);
 
+  alert(process.env.NODE_ENV);
+
   return (
     <div className=''>
       <div className={isOpen ? 'blur-sm' : ''}>
