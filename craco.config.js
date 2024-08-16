@@ -1,3 +1,4 @@
+const { DEV, PROD } = require('@/server/config/const');
 const path = require('path');
 
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
   },
   babel: {
     plugins: [
-      ...(process.env.NODE_ENV !== 'dev' && process.env.NODE_ENV !== 'prod'
+      ...(process.env.NODE_ENV !== DEV && process.env.NODE_ENV !== PROD
         ? ['react-refresh/babel']
         : [])
     ]

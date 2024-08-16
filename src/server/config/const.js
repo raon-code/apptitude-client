@@ -5,8 +5,12 @@
  *   /config/index.js 보다 좀 더 상위 계층의 값으로,
  *   거의 변경되지 않는 값 모음
  */
+export const LOCAL = 'local';
+export const DEV = 'development';
+export const PROD = 'production';
+
 export const SERVER_DEFAULT = {
-  NODE_ENV: 'local', // 실행환경
+  NODE_ENV: LOCAL, // 실행환경
   HOST: 'localhost', // 호스트
   PORT: 3001 // 포트
 };

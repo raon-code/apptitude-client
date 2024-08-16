@@ -27,14 +27,14 @@ function getServerConfig(nodeEnv) {
 
   switch (nodeEnv) {
     // 개발환경
-    case 'dev':
+    case 'development':
       _scheme = 'https';
       _host = 'api.buddybattle.net';
       _port = 3000;
       _baseUrl = `${_scheme}://${_host}${API_BASE_PATH}`;
       break;
     // 운영환경
-    case 'prod':
+    case 'production':
       _scheme = 'https';
       _host = 'api.buddybattle.net';
       _port = 3000;
