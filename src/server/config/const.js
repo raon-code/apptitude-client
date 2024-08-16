@@ -6,6 +6,8 @@ import { LOCAL } from './const';
  *   /config/index.js 보다 좀 더 상위 계층의 값으로,
  *   거의 변경되지 않는 값 모음
  */
+// 리액트 실행환경은 LOCAL, PROD만 존재
+//   이유: build 에러
 const _LOCAL = 'test';
 const _PROD = 'production';
 
