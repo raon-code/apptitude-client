@@ -21,7 +21,7 @@ const Title = styled.p`
 `;
 
 const TimeDisplay = styled.h1`
-  color: ${(props) => (props.isDetoxStarted ? '#0F0E14' : '#FEFEFE')};
+  color: var(--font_white, #fefefe);
   text-align: center;
   font-family: Pretendard;
   font-size: 68px;
@@ -67,10 +67,8 @@ const Timer = ({ isDetoxStarted }) => {
 
   return (
     <TimerContainer>
-      {!isDetoxStarted && <Title>누적 해독 현황</Title>}
-      <TimeDisplay isDetoxStarted={isDetoxStarted}>
-        {formatTime(seconds)}
-      </TimeDisplay>
+      <Title>누적 해독 현황</Title>
+      <TimeDisplay>{formatTime(seconds)}</TimeDisplay>
     </TimerContainer>
   );
 };

@@ -63,39 +63,7 @@ const BattlePeriodIng = styled.div`
   width: fit-content;
 `;
 
-const Notice = styled.div`
-  background-image: url('../../../bg_notice.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 276px;
-  height: 60px;
-  padding: 24px 12px 12px;
-  text-align: center;
-  display: flex;
-  gap: 10px;
-  span:first-child {
-    background-image: url('../../../icon_notice.svg');
-    background-repeat: no-repeat;
-    width: 24px;
-    height: 24px;
-  }
-  span:nth-child(2) {
-    color: #fff;
-    text-align: center;
-    font-family: Pretendard;
-    font-size: 18px;
-    font-weight: 500;
-    line-height: 24px;
-    letter-spacing: -0.5px;
-  }
-`;
-const BottomTxt = styled.div`
-  text-align: center;
-  font-family: Pretendard;
-  font-size: 16px;
-  color: var(--font_white, #fefefe);
-  margin-top: 20px;
-`;
+const Notice = styled.div``;
 
 const MainIcon = styled.div`
   width: 95.55vw;
@@ -134,17 +102,13 @@ const Main = () => {
   const [isDetoxStarted, setIsDetoxStarted] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState('#050409');
   const [showBattlePeriod, setShowBattlePeriod] = useState(true);
-  const [bottomText, setBottomText] = useState('안녕!');
 
   useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'hidden') {
-        setIsDetoxStarted((prev) => {
-          if (prev) {
-            setIsDetoxStarted(false); // 화면이 가려질 때 타이머 일시정지
-            return prev;
-          }
-        });
+        setIsDetoxStarted(false); // 화면이 가려질 때 타이머 일시정지
+      } else {
+        setIsDetoxStarted(true); // 화면이 다시 보일 때 타이머 재개
       }
     };
 
@@ -160,19 +124,7 @@ const Main = () => {
     setBackgroundColor(isDetoxStarted ? '#050409' : '#04C357');
     setConfirm(!confirm);
     setShowBattlePeriod(!isDetoxStarted); // isDetoxStarted 값에 따라 토글
-
-    if (!isDetoxStarted) {
-      setBottomText('명언');
-    } else if (isDetoxStarted) {
-      setBottomText('힘내!');
-    }
   };
-
-  // useEffect(() => {
-  //   if (!isDetoxStarted) {
-  //     setBottomText('안녕!');
-  //   }
-  // }, [isDetoxStarted]);
 
   return (
     <div>
@@ -183,12 +135,16 @@ const Main = () => {
           ) : (
             <BattlePeriod>대결 시작 전</BattlePeriod>
           )}
+
+          <Button
+            clickEvent={handleButtonClick}
+            step={isDetoxStarted ? '디톡스 그만하기' : '디톡스 시작하기!'}
+            isDetoxStarted={isDetoxStarted}
+            confirm={confirm}
+          />
           <Timer isDetoxStarted={isDetoxStarted} />
           {isDetoxStarted ? (
-            <Notice>
-              <span></span>
-              <span>화면 이탈 시 카운트가 중단돼요!</span>
-            </Notice>
+            <Notice />
           ) : (
             <MainIcon>
               <span></span>
@@ -196,16 +152,9 @@ const Main = () => {
               <span></span>
             </MainIcon>
           )}
-          <BottomTxt>{bottomText}</BottomTxt>
-          <Button
-            clickEvent={handleButtonClick}
-            step={isDetoxStarted ? '디톡스 그만하기' : '디톡스 시작하기!'}
-            isDetoxStarted={isDetoxStarted}
-            confirm={confirm}
-          />
         </Container>
       </MainWrap>
-      {!isDetoxStarted && <Nav />}
+      <Nav />
       {modalOpen && <Modal />}
     </div>
   );
