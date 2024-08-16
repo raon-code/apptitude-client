@@ -1,11 +1,11 @@
 # 종속성 #
-/node_modules/
+/node_modules
 
 # 배포/빌드 폴더 #
-/build/
-/android/app/build/
-/ios/build/
-/ios/Pods/
+/build
+/android/app/build
+/ios/build
+/ios/Pods
 
 # 디버깅 파일 #
 *.log
