@@ -1,8 +1,8 @@
-const CommonTemplate = require('@/server/enum/common-template');
-const {
+import CommonTemplate from '@/server/enum/common-template';
+import {
   convertToEnumMap,
   convertToEnumCodeList
-} = require('@/server/common/convertor');
+} from '@/server/common/convertor';
 
 /**
  * gender.js
@@ -16,4 +16,4 @@ const GENDER = {
 const GENDER_MAP = convertToEnumMap(GENDER);
 const GENDER_CODE = convertToEnumCodeList(GENDER);
 
-module.exports = { GENDER, GENDER_MAP, GENDER_CODE };
+export { GENDER, GENDER_MAP, GENDER_CODE };

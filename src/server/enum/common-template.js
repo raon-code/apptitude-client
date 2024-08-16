@@ -1,7 +1,7 @@
 /**
  *
  */
-class CommonTemplate {
+export class CommonTemplate {
   constructor(code, value, other) {
     this.code = code;
     this.value = value;
@@ -9,4 +9,4 @@ class CommonTemplate {
   }
 }
 
-module.exports = CommonTemplate;
+export default CommonTemplate;

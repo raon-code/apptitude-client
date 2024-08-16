@@ -1,8 +1,8 @@
-const CommonTemplate = require('@/server/enum/common-template');
-const {
+import CommonTemplate from '@/server/enum/common-template';
+import {
   convertToEnumMap,
   convertToEnumCodeList
-} = require('@/server/common/convertor');
+} from '@/server/common/convertor';
 
 /**
  * os-type.js
@@ -17,4 +17,4 @@ const OS_TYPE = {
 const OS_TYPE_MAP = convertToEnumMap(OS_TYPE);
 const OS_TYPE_CODE = convertToEnumCodeList(OS_TYPE);
 
-module.exports = { OS_TYPE, OS_TYPE_MAP, OS_TYPE_CODE };
+export { OS_TYPE, OS_TYPE_MAP, OS_TYPE_CODE };

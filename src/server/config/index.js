@@ -4,7 +4,7 @@
  *
  *  실행환경에 영향을 받지 않는 공통적으로 사용되는 환경설정 값 관리
  */
-const { SERVER_DEFAULT, API_BASE_PATH } = require('./const');
+import { SERVER_DEFAULT, API_BASE_PATH } from './const';
 
 const _nodeEnv = process.env.NODE_ENV || SERVER_DEFAULT.NODE_ENV;
 const serverConfig = getServerConfig(_nodeEnv);
@@ -52,4 +52,4 @@ function getServerConfig(nodeEnv) {
   };
 }
 
-module.exports = config;
+export default config;
