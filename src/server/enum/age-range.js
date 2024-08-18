@@ -1,8 +1,5 @@
 import CommonTemplate from '@/server/enum/common-template';
-import {
-  convertToEnumMap,
-  convertToEnumCodeList
-} from '@/server/common/convertor';
+import { convertToEnumMap } from '@/server/common/convertor';
 
 /**
  * age-range.js
@@ -21,6 +18,5 @@ const AGE_RANGE = {
 };
 
 const AGE_RANGE_MAP = convertToEnumMap(AGE_RANGE);
-const AGE_RANGE_CODE = convertToEnumCodeList(AGE_RANGE);
 
-export { AGE_RANGE, AGE_RANGE_MAP, AGE_RANGE_CODE };
+export { AGE_RANGE, AGE_RANGE_MAP };

@@ -17,18 +17,3 @@ export function convertToEnumMap(_enum) {
   });
   return result;
 }
-
-/**
- * Enum -> EnumCode
- * (EnumCodeList: validation을 위한 enum code list)
- *
- * @param {*} _enum
- * @returns
- */
-export function convertToEnumCodeList(_enum) {
-  const enumCode = {};
-  Object.keys(_enum).forEach((key) => {
-    enumCode[key] = _enum[key].code;
-  });
-  return enumCode;
-}

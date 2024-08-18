@@ -1,8 +1,5 @@
 import CommonTemplate from '@/server/enum/common-template';
-import {
-  convertToEnumMap,
-  convertToEnumCodeList
-} from '@/server/common/convertor';
+import { convertToEnumMap } from '@/server/common/convertor';
 
 /**
  * platform-type.js
@@ -13,6 +10,5 @@ const PLATFORM_TYPE = {
 };
 
 const PLATFORM_TYPE_MAP = convertToEnumMap(PLATFORM_TYPE);
-const PLATFORM_TYPE_CODE = convertToEnumCodeList(PLATFORM_TYPE);
 
-export { PLATFORM_TYPE, PLATFORM_TYPE_MAP, PLATFORM_TYPE_CODE };
+export { PLATFORM_TYPE, PLATFORM_TYPE_MAP };

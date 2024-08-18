@@ -1,8 +1,5 @@
 import CommonTemplate from '@/server/enum/common-template';
-import {
-  convertToEnumMap,
-  convertToEnumCodeList
-} from '@/server/common/convertor';
+import { convertToEnumMap } from '@/server/common/convertor';
 
 /**
  * message-type.js
@@ -13,6 +10,5 @@ const MESSAGE_TYPE = {
 };
 
 const MESSAGE_TYPE_MAP = convertToEnumMap(MESSAGE_TYPE);
-const MESSAGE_TYPE_CODE = convertToEnumCodeList(MESSAGE_TYPE);
 
-export { MESSAGE_TYPE, MESSAGE_TYPE_MAP, MESSAGE_TYPE_CODE };
+export { MESSAGE_TYPE, MESSAGE_TYPE_MAP };
