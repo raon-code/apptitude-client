@@ -1,8 +1,5 @@
 import CommonTemplate from '@/server/enum/common-template';
-import {
-  convertToEnumMap,
-  convertToEnumCodeList
-} from '@/server/common/convertor';
+import { convertToEnumMap } from '@/server/common/convertor';
 
 /**
  * status-type.js
@@ -17,6 +14,5 @@ const STATUS_TYPE = {
 };
 
 const STATUS_TYPE_MAP = convertToEnumMap(STATUS_TYPE);
-const STATUS_TYPE_CODE = convertToEnumCodeList(STATUS_TYPE);
 
-export { STATUS_TYPE, STATUS_TYPE_MAP, STATUS_TYPE_CODE };
+export { STATUS_TYPE, STATUS_TYPE_MAP };

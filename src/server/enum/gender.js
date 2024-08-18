@@ -1,8 +1,5 @@
 import CommonTemplate from '@/server/enum/common-template';
-import {
-  convertToEnumMap,
-  convertToEnumCodeList
-} from '@/server/common/convertor';
+import { convertToEnumMap } from '@/server/common/convertor';
 
 /**
  * gender.js
@@ -14,6 +11,5 @@ const GENDER = {
 };
 
 const GENDER_MAP = convertToEnumMap(GENDER);
-const GENDER_CODE = convertToEnumCodeList(GENDER);
 
-export { GENDER, GENDER_MAP, GENDER_CODE };
+export { GENDER, GENDER_MAP };
