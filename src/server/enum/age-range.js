@@ -1,8 +1,5 @@
-const CommonTemplate = require('@/server/enum/common-template');
-const {
-  convertToEnumMap,
-  convertToEnumCodeList
-} = require('@/server/common/convertor');
+import CommonTemplate from '@/server/enum/common-template';
+import { convertToEnumMap } from '@/server/common/convertor';
 
 /**
  * age-range.js
@@ -19,11 +16,7 @@ const AGE_RANGE = {
   AGE_80: new CommonTemplate('AR7', '80대'),
   AGE_OVER_90: new CommonTemplate('AR8', '90대 이상')
 };
-const AGE_RANGE_MAP = convertToEnumMap(AGE_RANGE);
-const AGE_RANGE_CODE = convertToEnumCodeList(AGE_RANGE);
 
-module.exports = {
-  AGE_RANGE,
-  AGE_RANGE_MAP,
-  AGE_RANGE_CODE
-};
+const AGE_RANGE_MAP = convertToEnumMap(AGE_RANGE);
+
+export { AGE_RANGE, AGE_RANGE_MAP };

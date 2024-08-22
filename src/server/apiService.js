@@ -1,9 +1,9 @@
 import apiClient from '@/server/config/api';
 
 /**
- * GET
+ * GET 요청(데이터 조회)
  *
- * @param {*} endpoint
+ * @param {string} endpoint 요청 URL [ex1]/tests [ex2]/tests?name=hello
  * @returns
  */
 export async function getData(endpoint) {
@@ -17,10 +17,10 @@ export async function getData(endpoint) {
 }
 
 /**
- * POST
+ * POST 요청(데이터 생성)
  *
- * @param {*} endpoint
- * @param {*} data
+ * @param {string} endpoint 요청 URL [ex1]/tests [ex2]/tests?name=hello
+ * @param {Object} data 요청 body 데이터
  * @returns
  */
 export async function postData(endpoint, data) {
@@ -34,10 +34,10 @@ export async function postData(endpoint, data) {
 }
 
 /**
- * PUT
+ * PUT 요청(데이터 수정)
  *
- * @param {*} endpoint
- * @param {*} data
+ * @param {string} endpoint 요청 URL [ex1]/tests [ex2]/tests?name=hello
+ * @param {Object} data 요청 body 데이터
  * @returns
  */
 export async function putData(endpoint, data) {
@@ -51,9 +51,9 @@ export async function putData(endpoint, data) {
 }
 
 /**
- * DELETE
+ * DELETE 요청(데이터 삭제)
  *
- * @param {*} endpoint
+ * @param {string} endpoint 요청 URL [ex1]/tests [ex2]/tests?name=hello
  * @returns
  */
 export async function deleteData(endpoint) {

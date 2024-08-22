@@ -1,8 +1,5 @@
-const CommonTemplate = require('@/server/enum/common-template');
-const {
-  convertToEnumMap,
-  convertToEnumCodeList
-} = require('@/server/common/convertor');
+import CommonTemplate from '@/server/enum/common-template';
+import { convertToEnumMap } from '@/server/common/convertor';
 
 /**
  * job-type.js
@@ -17,6 +14,5 @@ const JOB_TYPE = {
 };
 
 const JOB_TYPE_MAP = convertToEnumMap(JOB_TYPE);
-const JOB_TYPE_CODE = convertToEnumCodeList(JOB_TYPE);
 
-module.exports = { JOB_TYPE, JOB_TYPE_MAP, JOB_TYPE_CODE };
+export { JOB_TYPE, JOB_TYPE_MAP };

@@ -18,9 +18,9 @@
     "styled-components": "^6.1.8"
   },
   "scripts": {
-    "start": "craco start",
-    "start:dev": "NODE_ENV=dev craco start",
-    "start:prod": "NODE_ENV=prod craco start",
+    "start": "NODE_ENV=test craco start",
+    "start:dev": "NODE_ENV=production craco start",
+    "start:prod": "NODE_ENV=production craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "craco eject"

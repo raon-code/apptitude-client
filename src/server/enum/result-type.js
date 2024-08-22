@@ -1,8 +1,5 @@
-const CommonTemplate = require('@/server/enum/common-template');
-const {
-  convertToEnumMap,
-  convertToEnumCodeList
-} = require('@/server/common/convertor');
+import CommonTemplate from '@/server/enum/common-template';
+import { convertToEnumMap } from '@/server/common/convertor';
 
 /**
  * result-type.js
@@ -15,6 +12,5 @@ const RESULT_TYPE = {
 };
 
 const RESULT_TYPE_MAP = convertToEnumMap(RESULT_TYPE);
-const RESULT_TYPE_CODE = convertToEnumCodeList(RESULT_TYPE);
 
-module.exports = { RESULT_TYPE, RESULT_TYPE_MAP, RESULT_TYPE_CODE };
+export { RESULT_TYPE, RESULT_TYPE_MAP };

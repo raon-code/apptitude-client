@@ -1,39 +1,35 @@
 /**
  * 공통코드 리스트
  */
-const {
+import {
   AGE_RANGE,
   AGE_RANGE_MAP,
   AGE_RANGE_CODE
-} = require('@/server/enum/age-range');
-const { GENDER, GENDER_MAP, GENDER_CODE } = require('@/server/enum/gender');
-const {
-  JOB_TYPE,
-  JOB_TYPE_MAP,
-  JOB_TYPE_CODE
-} = require('@/server/enum/job-type');
-const {
+} from '@/server/enum/age-range';
+import { GENDER, GENDER_MAP, GENDER_CODE } from '@/server/enum/gender';
+import { JOB_TYPE, JOB_TYPE_MAP, JOB_TYPE_CODE } from '@/server/enum/job-type';
+import {
   MESSAGE_TYPE,
   MESSAGE_TYPE_MAP,
   MESSAGE_TYPE_CODE
-} = require('@/server/enum/message-type');
-const { OS_TYPE, OS_TYPE_MAP, OS_TYPE_CODE } = require('@/server/enum/os-type');
-const {
+} from '@/server/enum/message-type';
+import { OS_TYPE, OS_TYPE_MAP, OS_TYPE_CODE } from '@/server/enum/os-type';
+import {
   PLATFORM_TYPE,
   PLATFORM_TYPE_MAP,
   PLATFORM_TYPE_CODE
-} = require('@/server/enum/platform-type');
-const { QUOTE, QUOTE_MAP, QUOTE_CODE } = require('@/server/enum/quote');
-const {
+} from '@/server/enum/platform-type';
+import { QUOTE, QUOTE_MAP, QUOTE_CODE } from '@/server/enum/quote';
+import {
   RESULT_TYPE,
   RESULT_TYPE_MAP,
   RESULT_TYPE_CODE
-} = require('@/server/enum/result-type');
-const {
+} from '@/server/enum/result-type';
+import {
   STATUS_TYPE,
   STATUS_TYPE_MAP,
   STATUS_TYPE_CODE
-} = require('@/server/enum/status-type');
+} from '@/server/enum/status-type';
 
 const ENUM_LIST = [
   GENDER, // 성별
@@ -72,22 +68,18 @@ const ENUM_CODE_LIST = [
 ];
 
 // 객체의 값을 변경하지 못하도록 설정
-ENUM_LIST.map((_enum) => {
+ENUM_LIST.forEach((_enum) => {
   Object.freeze(_enum);
 });
 
 // 객체의 값을 변경하지 못하도록 설정
-ENUM_MAP_LIST.map((enumMap) => {
+ENUM_MAP_LIST.forEach((enumMap) => {
   Object.freeze(enumMap);
 });
 
 // 객체의 값을 변경하지 못하도록 설정
-ENUM_CODE_LIST.map((enumCode) => {
+ENUM_CODE_LIST.forEach((enumCode) => {
   Object.freeze(enumCode);
 });
 
-module.exports = {
-  ENUM_LIST,
-  ENUM_MAP_LIST,
-  ENUM_CODE_LIST
-};
+export { ENUM_LIST, ENUM_MAP_LIST, ENUM_CODE_LIST };
