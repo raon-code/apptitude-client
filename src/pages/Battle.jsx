@@ -4,11 +4,13 @@ import NavButton from '@/components/NavButton';
 import VS from '@/components/VS';
 import Chart from '@/components/Chart';
 import BattleMore from '@/components/BattleMore';
+import { getData } from '@/server/apiService';
 
 export default function Battle() {
   const containerRef = useRef(null);
   const [isBattle, setIsBattle] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [test, setTest] = useState(null);
   // const [isContractOpen, setIsContractOpen] = useState(false);
   const closeMore = () => setIsOpen(false);
   // const viewContract = () => {
@@ -17,6 +19,11 @@ export default function Battle() {
   useEffect(() => {
     // 진행중인 배틀이 있는 경우
     setIsBattle(true);
+    getData('/api/tests').then((data) => {
+      console.log(data);
+      setTest(data);
+      console.log('test', test);
+    });
   }, []);
 
   return (
@@ -123,6 +130,9 @@ export default function Battle() {
               </div>
             </div>
           )}
+        </div>
+        <div className='text-white'>
+          {test && test.data.map((d) => d.title)}
         </div>
         <Nav />
       </div>
