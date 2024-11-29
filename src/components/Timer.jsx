@@ -18,6 +18,7 @@ const Title = styled.p`
   font-weight: 500;
   line-height: normal;
   letter-spacing: -0.4px;
+  display: ${(props) => (props.isDetoxStarted ? 'none' : 'block')};
 `;
 
 const TimeDisplay = styled.h1`
@@ -67,7 +68,7 @@ const Timer = ({ isDetoxStarted }) => {
 
   return (
     <TimerContainer>
-      <Title>누적 해독 현황</Title>
+      <Title isDetoxStarted={isDetoxStarted}>누적 해독 현황</Title>
       <TimeDisplay>{formatTime(seconds)}</TimeDisplay>
     </TimerContainer>
   );

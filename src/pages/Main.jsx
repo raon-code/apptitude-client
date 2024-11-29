@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Button from '../components/Button';
-import Modal from '../components/Modal';
+import MainModal from '../components/MainModal';
 import Nav from '../components/Nav';
 import Timer from '../components/Timer';
 
@@ -55,7 +55,6 @@ const BattlePeriodIng = styled.div`
   background: var(--Secondary_color, #a5e9c2);
   color: var(--font_main, #0f0e14);
   text-align: center;
-  font-family: Pretendard;
   font-size: 16px;
   font-weight: 500;
   letter-spacing: -0.4px;
@@ -63,7 +62,24 @@ const BattlePeriodIng = styled.div`
   width: fit-content;
 `;
 
-const Notice = styled.div``;
+const Notice = styled.div`
+  background-image: url('../../../main_notice.svg');
+  width: 276px;
+  height: 60px;
+`;
+
+const Message = styled.p`
+  color: ${(props) =>
+    props.isDetoxStarted ? '#050409' : 'rgba(255, 255, 255, 0.87)'};
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 133.333% */
+  letter-spacing: -0.45px;
+  position: absolute;
+  bottom: 141px;
+`;
 
 const MainIcon = styled.div`
   width: 95.55vw;
@@ -105,25 +121,35 @@ const Main = () => {
 
   useEffect(() => {
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') {
-        setIsDetoxStarted(false); // 화면이 가려질 때 타이머 일시정지
-      } else {
-        setIsDetoxStarted(true); // 화면이 다시 보일 때 타이머 재개
+      if (isDetoxStarted) {
+        // 대결이 시작되었을 때만 처리
+        if (document.visibilityState === 'hidden') {
+          setIsDetoxStarted(false); // 화면이 가려질 때 타이머 일시정지
+        } else {
+          setIsDetoxStarted(true); // 화면이 다시 보일 때 타이머 재개
+        }
       }
     };
+
+    setBackgroundColor(isDetoxStarted ? '#04C357' : '#050409');
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, []);
+  }, [isDetoxStarted]); // isDetoxStarted가 바뀔 때만 effect 실행
 
   const handleButtonClick = () => {
     setIsDetoxStarted((prev) => !prev);
-    setBackgroundColor(isDetoxStarted ? '#050409' : '#04C357');
+    setBackgroundColor(isDetoxStarted ? '#04C357' : '#050409');
     setConfirm(!confirm);
     setShowBattlePeriod(!isDetoxStarted); // isDetoxStarted 값에 따라 토글
+    if (!isDetoxStarted) {
+      setModalOpen(true); // 디톡스 시작 시 모달 열기
+    } else {
+      setModalOpen(false); // 디톡스 종료 시 모달 닫기
+    }
   };
 
   return (
@@ -131,7 +157,9 @@ const Main = () => {
       <MainWrap backgroundColor={backgroundColor}>
         <Container>
           {isDetoxStarted ? (
-            <BattlePeriodIng show={!isDetoxStarted}>대결 중</BattlePeriodIng>
+            <BattlePeriodIng show={isDetoxStarted ? 'true' : 'false'}>
+              대결 중
+            </BattlePeriodIng>
           ) : (
             <BattlePeriod>대결 시작 전</BattlePeriod>
           )}
@@ -144,18 +172,36 @@ const Main = () => {
           />
           <Timer isDetoxStarted={isDetoxStarted} />
           {isDetoxStarted ? (
-            <Notice />
+            <>
+              <Notice />
+              <Message isDetoxStarted={isDetoxStarted}>
+                시간을 선택하는 것은
+                <br />
+                시간을 절약하는 것이다.
+                <br />
+                -베이컨-
+              </Message>
+            </>
           ) : (
-            <MainIcon>
-              <span></span>
-              <span></span>
-              <span></span>
-            </MainIcon>
+            <>
+              <MainIcon>
+                <span></span>
+                <span></span>
+                <span></span>
+              </MainIcon>
+              <Message isDetoxStarted={isDetoxStarted}>
+                잘하고있어!
+                <br />
+                조금만 더 힘내서 디톡스해보자!
+              </Message>
+            </>
           )}
         </Container>
       </MainWrap>
-      <Nav />
-      {modalOpen && <Modal />}
+      {isDetoxStarted ? '' : <Nav />}
+      {/* <Nav /> */}
+      {/* {modalOpen && <Modal />} */}
+      <MainModal />
     </div>
   );
 };
