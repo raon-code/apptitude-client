@@ -4,6 +4,8 @@ import { RouterProvider } from 'react-router-dom';
 import { router } from '@/router';
 import { createGlobalStyle } from 'styled-components';
 import './index.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
