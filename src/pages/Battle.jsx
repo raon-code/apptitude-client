@@ -1,42 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Nav from '@/components/Nav';
-import NavButton from '@/components/NavButton';
 import VS from '@/components/VS';
 import Chart from '@/components/Chart';
 import BattleMore from '@/components/BattleMore';
-import { getData } from '@/server/apiService';
 
 export default function Battle() {
   const containerRef = useRef(null);
-  const [isBattle, setIsBattle] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [test, setTest] = useState(null);
-  // const [isContractOpen, setIsContractOpen] = useState(false);
   const closeMore = () => setIsOpen(false);
-  // const viewContract = () => {
-  //   setIsContractOpen(true);
-  // };
-  useEffect(() => {
-    // 진행중인 배틀이 있는 경우
-    setIsBattle(true);
-    getData('/api/tests').then((data) => {
-      console.log(data);
-      setTest(data);
-      console.log('test', test);
-    });
-  }, []);
 
   return (
     <div className=''>
       <div className={isOpen ? 'blur-sm' : ''}>
         <div className='h-full w-full overflow-hidden flex flex-col items-center px-[16px]'>
-          {!isBattle ? (
-            <>
-              <div className='w-full h-[519px] bg-[#D9D9D9] mt-[34px]'></div>
-              <NavButton toLink={'/makeBattle'} title={'배틀 만들기'} />
-            </>
-          ) : (
-            <div className='w-screen h-screen bg-[#050409] overflow-scroll'>
+          <div className='w-screen h-screen bg-[#050409] overflow-scroll'>
               {/* 제목 */}
               <div className='flex justify-center items-center relative'>
                 <div className='flex items-center gap-2 py-[8px]'>
@@ -129,18 +106,10 @@ export default function Battle() {
                 </div>
               </div>
             </div>
-          )}
-        </div>
-        <div className='text-white'>
-          {test && test.data.map((d) => d.title)}
         </div>
         <Nav />
       </div>
       <BattleMore isOpen={isOpen} closeMore={closeMore} />
-      {/* <CenterModal
-        isContractOpen={isContractOpen}
-        viewContract={viewContract}
-      /> */}
     </div>
   );
 }

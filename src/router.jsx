@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '@/App';
-import Test from '@/pages/Test';
 import Login from '@/pages/Login';
 import Survey from '@/pages/Survey';
 import MakeBattle from '@/pages/MakeBattle';
@@ -22,10 +21,6 @@ export const router = createBrowserRouter([
       {
         path: '',
         element: <Main />
-      },
-      {
-        path: 'test',
-        element: <Test />
       },
       {
         path: 'login',
