@@ -3,9 +3,14 @@
 
 # 배포/빌드 폴더 #
 /build
+/dist
+/coverage
 /android/app/build
 /ios/build
 /ios/Pods
+
+# 캐시 파일 #
+/.eslintcache
 
 # 디버깅 파일 #
 *.log
@@ -14,9 +19,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # 환경 설정 파일 #
-#.env
-#.env.local
-#.env.*.local
+.env
+.env.local
+.env.*.local
 
 # 프로젝트 설정 & 사용자 특정 파일 #
 android/local.properties
