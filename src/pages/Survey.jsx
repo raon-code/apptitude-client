@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Back from '@/components/Back';
 import Button from '@/components/Button';
-import OptionGrid from '@/components/survey/Main';
+import OptionGrid from '@/components/survey/OptionGrid';
 import { Screen, Content, Spacer } from '@/components/ui/Screen';
 import { AGES, CATEGORIES, GENDERS } from '@/features/signup/options';
 import { useSignup } from '@/features/signup/SignupContext';

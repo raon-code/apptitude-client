@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { colors, radius, space, typography } from '@/styles/tokens';
+import { colors, radius, space } from '@/styles/tokens';
 
 const Wrap = styled.div`
   display: flex;
@@ -56,5 +56,3 @@ export default function Button({
     </Wrap>
   );
 }
-
-export const buttonTextStyle = typography.title;

@@ -5,7 +5,7 @@ import apiClient from '@/server/config/api';
  * status가 없으면 네트워크 단절/타임아웃으로 취급한다.
  */
 export class ApiError extends Error {
-  constructor(message, status = null, cause) {
+  constructor(status = null, message = '요청에 실패했습니다.', cause) {
     super(message);
     this.name = 'ApiError';
     this.status = status;
@@ -18,7 +18,7 @@ export class ApiError extends Error {
       error?.response?.data?.message ??
       error?.message ??
       '요청에 실패했습니다.';
-    return new ApiError(message, status, error);
+    return new ApiError(status, message, error);
   }
 }
 

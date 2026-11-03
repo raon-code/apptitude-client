@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import image from '@/assets/Design2.png';
-import { colors, layout, space } from '@/styles/tokens';
+import { colors, layout, radius, space } from '@/styles/tokens';
 
 const Backdrop = styled.div`
   position: fixed;
@@ -20,7 +20,7 @@ const Sheet = styled.div`
   max-width: ${layout.maxWidth};
   padding: ${space(8)} ${space(6)} ${space(10)};
   background: ${colors.surface};
-  border-radius: 32px 32px 0 0;
+  border-radius: ${radius.xl} ${radius.xl} 0 0;
   text-align: center;
 `;
 
@@ -35,7 +35,7 @@ const Title = styled.p`
 `;
 
 const Description = styled.p`
-  margin-top: ${space(3.5)};
+  margin-top: ${space(3)};
   color: ${colors.textMuted};
   font-size: 20px;
   font-weight: 500;
@@ -57,7 +57,7 @@ const Actions = styled.div`
 
 const Primary = styled.button`
   padding: ${space(4)};
-  border-radius: 36px;
+  border-radius: ${radius.pill};
   background: ${colors.accent};
   color: ${colors.onAccent};
   font-size: 22px;

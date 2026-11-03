@@ -14,7 +14,7 @@ const NavBar = styled.nav`
   padding-bottom: env(safe-area-inset-bottom, 0px);
   display: flex;
   justify-content: space-between;
-  background: rgba(51, 51, 51, 0.45);
+  background: ${colors.navSurface};
   backdrop-filter: blur(12px);
   border-radius: 20px 20px 0 0;
   z-index: 20;

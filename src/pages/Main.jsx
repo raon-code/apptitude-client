@@ -19,7 +19,7 @@ const Wrap = styled(Screen)`
 
 const Badge = styled.span`
   align-self: center;
-  padding: ${space(1.5)} ${space(3)};
+  padding: ${space(2)} ${space(3)};
   border-radius: 10px;
   background: ${({ $active }) =>
     $active ? colors.accentSoft : colors.surface};

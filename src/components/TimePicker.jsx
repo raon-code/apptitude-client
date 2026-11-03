@@ -55,7 +55,6 @@ export default function TimePicker({ setHours, setMinutes }) {
       <HoursSwiper
         direction='vertical'
         slidesPerView={3}
-        loopAdditionalSlides={5}
         slideToClickedSlide
         centeredSlides
         modules={[Mousewheel]}
@@ -73,7 +72,6 @@ export default function TimePicker({ setHours, setMinutes }) {
       <MinutesSwiper
         direction='vertical'
         slidesPerView={3}
-        loopAdditionalSlides={5}
         slideToClickedSlide
         centeredSlides
         modules={[Mousewheel]}

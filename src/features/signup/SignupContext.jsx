@@ -23,12 +23,7 @@ export function SignupProvider({ children }) {
     setDraft((current) => ({ ...current, ...patch }));
   }, []);
 
-  const resetDraft = useCallback(() => setDraft(INITIAL_DRAFT), []);
-
-  const value = useMemo(
-    () => ({ draft, updateDraft, resetDraft }),
-    [draft, updateDraft, resetDraft]
-  );
+  const value = useMemo(() => ({ draft, updateDraft }), [draft, updateDraft]);
 
   return (
     <SignupContext.Provider value={value}>{children}</SignupContext.Provider>

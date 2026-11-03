@@ -9,6 +9,7 @@ export const colors = {
   textSubtle: '#6E7487',
   danger: '#D83E3E',
   kakao: '#F8E049',
+  navSurface: 'rgba(51, 51, 51, 0.45)',
   onAccent: '#0F0E14'
 };
 
@@ -21,6 +22,7 @@ export const radius = {
   sm: '10px',
   md: '16px',
   lg: '24px',
+  xl: '32px',
   pill: '999px'
 };
 

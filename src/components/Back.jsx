@@ -29,8 +29,8 @@ const Title = styled.span`
   letter-spacing: -0.5px;
 `;
 
-export default function Back({ title, backClick, onBack, right }) {
-  const handleBack = backClick ?? onBack ?? (() => window.history.back());
+export default function Back({ title, backClick }) {
+  const handleBack = backClick ?? (() => window.history.back());
 
   return (
     <Header>
@@ -52,7 +52,6 @@ export default function Back({ title, backClick, onBack, right }) {
         </svg>
       </BackButton>
       {title ? <Title>{title}</Title> : null}
-      {right ? <div>{right}</div> : null}
     </Header>
   );
 }

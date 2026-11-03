@@ -18,11 +18,11 @@ const TABS = [
 const TabBar = styled.div`
   display: flex;
   justify-content: space-between;
-  gap: ${space(2.75)};
+  gap: ${space(2)};
   width: 100%;
   height: 51px;
   margin-top: ${space(10)};
-  padding: ${space(1.5)};
+  padding: ${space(2)};
   border-radius: ${radius.sm};
   background: ${colors.surface};
 `;

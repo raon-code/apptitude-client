@@ -19,9 +19,3 @@ export const Content = styled.div`
 export const Spacer = styled.div`
   flex: 1;
 `;
-
-export const Stack = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: ${({ $gap = 4 }) => space($gap)};
-`;

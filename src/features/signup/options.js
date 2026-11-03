@@ -44,10 +44,3 @@ export const AGES = [
   { value: '40s', label: '40대', badge: '40~' },
   { value: '50plus', label: '50대 이상', badge: '50▲' }
 ];
-
-export const SIGNUP_STEPS = [
-  { path: '/signup/profile', label: '프로필' },
-  { path: '/signup/gender', label: '성별' },
-  { path: '/signup/category', label: '소속' },
-  { path: '/signup/age', label: '연령대' }
-];
