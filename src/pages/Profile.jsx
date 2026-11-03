@@ -147,7 +147,7 @@ const CropOverlay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(5, 4, 9, 0.85);
+  background: ${colors.scrimStrong};
 `;
 
 const CropPanel = styled.div`

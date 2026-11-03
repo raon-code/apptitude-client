@@ -7,7 +7,7 @@ const Backdrop = styled.div`
   position: fixed;
   inset: 0;
   z-index: 40;
-  background: rgba(5, 4, 9, 0.8);
+  background: ${colors.scrim};
 `;
 
 const Sheet = styled.div`

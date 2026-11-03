@@ -9,7 +9,7 @@ const Overlay = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0 ${space(4)};
-  background: rgba(5, 4, 9, 0.72);
+  background: ${colors.scrim};
 `;
 
 const Dialog = styled.div`

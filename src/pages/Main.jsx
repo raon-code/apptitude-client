@@ -45,8 +45,7 @@ const Message = styled.p`
   left: 0;
   right: 0;
   text-align: center;
-  color: ${({ $active }) =>
-    $active ? colors.onAccent : 'rgba(255, 255, 255, 0.87)'};
+  color: ${({ $active }) => ($active ? colors.onAccent : colors.textSoft)};
   font-size: 18px;
   font-weight: 500;
   line-height: 24px;
@@ -70,6 +69,18 @@ const IconFrame = styled.div`
     height: 76px;
     background-position: center bottom;
     background-repeat: no-repeat;
+  }
+
+  span:nth-child(1) {
+    background-image: url('/icon_red.svg');
+  }
+
+  span:nth-child(2) {
+    background-image: url('/icon_yellow.svg');
+  }
+
+  span:nth-child(3) {
+    background-image: url('/icon_green.svg');
   }
 
   ${({ $active }) =>
@@ -142,9 +153,9 @@ export default function Main() {
               </IconFrame>
             ) : (
               <IconFrame>
-                <span style={{ backgroundImage: "url('/icon_red.svg')" }} />
-                <span style={{ backgroundImage: "url('/icon_yellow.svg')" }} />
-                <span style={{ backgroundImage: "url('/icon_green.svg')" }} />
+                <span />
+                <span />
+                <span />
               </IconFrame>
             )}
             <Message $active={isDetoxStarted}>

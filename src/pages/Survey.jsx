@@ -34,6 +34,7 @@ const Progress = styled.div`
 
   div {
     height: 100%;
+    width: ${({ $percent }) => `${$percent}%`};
     background: ${colors.accent};
     transition: width 200ms ease;
   }
@@ -79,10 +80,8 @@ export default function Survey() {
     <Screen>
       <Content>
         <Back title='시작하기' backClick={handleBack} />
-        <Progress>
-          <div
-            style={{ width: `${((stepIndex + 1) / steps.length) * 100}%` }}
-          />
+        <Progress $percent={((stepIndex + 1) / steps.length) * 100}>
+          <div />
         </Progress>
         <Question>{step.title}</Question>
         <OptionGrid

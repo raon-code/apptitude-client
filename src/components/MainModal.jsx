@@ -5,7 +5,7 @@ import { colors, radius, space } from '@/styles/tokens';
 const Backdrop = styled(motion.div)`
   position: fixed;
   inset: 0;
-  background: rgba(5, 4, 9, 0.72);
+  background: ${colors.scrim};
   z-index: 40;
 `;
 

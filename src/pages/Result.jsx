@@ -12,7 +12,8 @@ import { colors, radius, space } from '@/styles/tokens';
 const PUSH_TEXT = {
   victory: '친구에게 대결보상을 요청했어요!',
   defeat: '친구에게 보상완료를 요청했어요!',
-  tie: '대결 결과를 확인했어요!'
+  tie: '대결 결과를 확인했어요!',
+  paid: '친구에게 보상을 완료했다고 알렸어요!'
 };
 
 const HINT = {
@@ -42,8 +43,10 @@ const Action = styled.button`
   min-height: 56px;
   padding: ${space(4)} ${space(3)};
   border-radius: ${radius.pill};
-  background: ${colors.accent};
-  color: ${colors.onAccent};
+  background: ${({ $variant }) =>
+    $variant === 'ghost' ? colors.surfaceRaised : colors.accent};
+  color: ${({ $variant }) =>
+    $variant === 'ghost' ? colors.text : colors.onAccent};
   font-size: 18px;
   font-weight: 700;
   letter-spacing: -0.45px;
@@ -57,9 +60,11 @@ const Action = styled.button`
 export default function Result() {
   const { state } = useLocation();
   const type = state?.type ?? 'victory';
-  const [isPush, setIsPush] = useState(false);
+  const [pushText, setPushText] = useState('');
   const hint = HINT[type];
-  const closePush = useCallback(() => setIsPush(false), []);
+  const closePush = useCallback(() => setPushText(''), []);
+
+  const push = (text) => setPushText(text);
 
   return (
     <Screen $nav>
@@ -71,9 +76,18 @@ export default function Result() {
           <>
             <Hint>{hint}</Hint>
             <Actions>
+              {type === 'victory' ? (
+                <Action
+                  type='button'
+                  $variant='ghost'
+                  onClick={() => push(PUSH_TEXT.paid)}
+                >
+                  보상완료
+                </Action>
+              ) : null}
               <Action
                 type='button'
-                onClick={() => setIsPush(true)}
+                onClick={() => push(PUSH_TEXT[type])}
                 aria-label='상대방에게 보상 요청 알림 보내기'
               >
                 상대방 콕 찌르기
@@ -82,7 +96,7 @@ export default function Result() {
           </>
         ) : null}
       </Content>
-      <Push isPush={isPush} setPushOut={closePush} text={PUSH_TEXT[type]} />
+      <Push isPush={Boolean(pushText)} setPushOut={closePush} text={pushText} />
       <Nav />
     </Screen>
   );

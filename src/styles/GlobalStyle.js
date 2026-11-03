@@ -45,8 +45,8 @@ export const GlobalStyle = createGlobalStyle`
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    background: ${colors.onAccent};
-    color: ${colors.text};
+    background: var(--color-on-accent);
+    color: var(--color-text);
     font-family: ${fontFamily};
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
@@ -56,9 +56,15 @@ export const GlobalStyle = createGlobalStyle`
     width: 100%;
     max-width: ${layout.maxWidth};
     min-height: 100vh;
-    background: ${colors.bg};
+    background: var(--color-bg);
     overflow-x: hidden;
     position: relative;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
   }
 
   h1,

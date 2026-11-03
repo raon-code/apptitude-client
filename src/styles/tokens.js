@@ -5,11 +5,14 @@ export const colors = {
   accent: '#04C357',
   accentSoft: '#A5E9C2',
   text: '#FEFEFE',
+  textSoft: 'rgba(255, 255, 255, 0.87)',
   textMuted: '#BEBDC4',
   textSubtle: '#6E7487',
   danger: '#D83E3E',
   kakao: '#F8E049',
   navSurface: 'rgba(51, 51, 51, 0.45)',
+  scrim: 'rgba(5, 4, 9, 0.75)',
+  scrimStrong: 'rgba(5, 4, 9, 0.85)',
   onAccent: '#0F0E14'
 };
 
