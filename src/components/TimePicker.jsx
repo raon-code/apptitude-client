@@ -1,10 +1,39 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Mousewheel } from 'swiper/modules';
 import 'swiper/css';
-import clsx from 'clsx';
+import styled from 'styled-components';
+import { colors, space, typography } from '@/styles/tokens';
 
-const TIME_HOURS = Array.from(Array(24).keys());
-const TIME_MINUTES = Array.from(Array(6).keys()).map((index) => index * 10);
+import { HOURS, MINUTES, minuteForSlide } from './timePickerModel';
+
+const Row = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const HoursSwiper = styled(Swiper)`
+  height: 180px;
+  padding: 0 ${space(4)};
+  margin-right: ${space(2)};
+`;
+
+const MinutesSwiper = styled(Swiper)`
+  height: 180px;
+  padding: 0 ${space(4)};
+  margin-left: ${space(2)};
+`;
+
+const Value = styled.div`
+  display: flex;
+  align-items: center;
+  height: 60px;
+  cursor: pointer;
+  font-size: ${({ $active }) => ($active ? '32px' : typography.subtitle.size)};
+  font-weight: ${({ $active }) => ($active ? 500 : typography.subtitle.weight)};
+  color: ${({ $active }) => ($active ? colors.accent : colors.textSubtle)};
+`;
 
 export default function TimePicker({ setHours, setMinutes }) {
   const [selectedHour, setSelectedHour] = useState(0);
@@ -16,65 +45,49 @@ export default function TimePicker({ setHours, setMinutes }) {
   };
 
   const handleMinuteChange = (swiper) => {
-    setSelectedMinute(swiper.realIndex);
-    setMinutes(swiper.realIndex * 10);
-    console.log('Selected minute:', swiper.realIndex * 10); // 콘솔에 선택된 분을 출력합니다.
+    const minute = minuteForSlide(swiper.realIndex);
+    setSelectedMinute(minute);
+    setMinutes(minute);
   };
 
   return (
-    <div className='flex justify-center items-center'>
-      {/* 왼쪽 Swiper */}
-      <Swiper
-        className='time-picker-swiper h-[16.8rem] px-[1.1rem] mr-2 h-[180px]'
-        direction={'vertical'}
+    <Row>
+      <HoursSwiper
+        direction='vertical'
         slidesPerView={3}
-        mousewheel
         loopAdditionalSlides={5}
         slideToClickedSlide
         centeredSlides
+        modules={[Mousewheel]}
+        mousewheel={{ forceToAxis: true, sensitivity: 1 }}
         onSlideChange={handleHourChange}
       >
-        {TIME_HOURS.map((hour) => (
+        {HOURS.map((hour) => (
           <SwiperSlide key={hour}>
-            <div
-              className={clsx(
-                'flex h-[60px] cursor-pointer items-center',
-                selectedHour === hour
-                  ? 'text-[2rem] font-medium text-primary-500'
-                  : 'text-primary-700 text-lg'
-              )}
-            >
+            <Value $active={selectedHour === hour}>
               {(hour + '').padStart(2, '0')}
-            </div>
+            </Value>
           </SwiperSlide>
         ))}
-      </Swiper>
-      {/* 오른쪽 Swiper */}
-      <Swiper
-        className='time-picker-swiper h-[16.8rem] px-[1.1rem] ml-2 h-[180px]'
-        direction={'vertical'}
+      </HoursSwiper>
+      <MinutesSwiper
+        direction='vertical'
         slidesPerView={3}
-        mousewheel
         loopAdditionalSlides={5}
         slideToClickedSlide
         centeredSlides
+        modules={[Mousewheel]}
+        mousewheel={{ forceToAxis: true, sensitivity: 1 }}
         onSlideChange={handleMinuteChange}
       >
-        {TIME_MINUTES.map((minute) => (
+        {MINUTES.map((minute) => (
           <SwiperSlide key={minute}>
-            <div
-              className={clsx(
-                'flex h-[60px] cursor-pointer items-center',
-                selectedMinute === minute
-                  ? 'text-[2rem] font-medium text-primary-500'
-                  : 'text-primary-700 text-lg'
-              )}
-            >
+            <Value $active={selectedMinute === minute}>
               {(minute + '').padStart(2, '0')}
-            </div>
+            </Value>
           </SwiperSlide>
         ))}
-      </Swiper>
-    </div>
+      </MinutesSwiper>
+    </Row>
   );
 }

@@ -1,88 +1,106 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
 import styled from 'styled-components';
 import 'react-calendar/dist/Calendar.css';
 import moment from 'moment';
+import { colors, radius, space, typography } from '@/styles/tokens';
 
-const BattleCalendar = ({ onChange, value }) => {
-  const CalendarContainer = styled.div`
-    position: relative;
-    width: 100%;
-  `;
+const Container = styled.div`
+  position: relative;
+  width: 100%;
+`;
 
-  const DropdownButton = styled.button`
-    width: 100%;
-    padding: 16px;
-    border-radius: 10px;
-    background-color: var(--inputBox_color, #28272b);
-    color: #888;
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: -0.45px;
-  `;
+const DropdownButton = styled.button`
+  width: 100%;
+  padding: ${space(4)};
+  border-radius: ${radius.sm};
+  background-color: ${colors.surface};
+  color: ${colors.textMuted};
+  font-size: ${typography.subtitle.size};
+  font-weight: ${typography.subtitle.weight};
+  letter-spacing: ${typography.subtitle.letterSpacing};
+  text-align: left;
+`;
 
-  const CalendarWrapper = styled.div`
-    z-index: 11;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    display: ${(props) => (props.isOpen ? 'block' : 'none')};
-    .react-calendar__tile--now {
-      background: #ef5350;
-      color: #fafafa;
-    }
+const CalendarWrapper = styled.div`
+  z-index: 11;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
 
-    .react-calendar__tile--now:enabled:hover,
-    .react-calendar__tile--now:enabled:focus {
-      background: #ef5350;
-      color: #fafafa;
-    }
-    .react-calendar__tile--active {
-      background: #7fb77e;
-      color: white;
-    }
-    .react-calendar__tile--active:enabled:hover,
-    .react-calendar__tile--active:enabled:focus {
-      background: #7fb77e;
-    }
-  `;
+  .react-calendar {
+    background-color: ${colors.surface};
+    border: none;
+    border-radius: ${radius.sm};
+    color: ${colors.text};
+  }
 
-  const [startDate, setStartDate] = useState('언제부터 언제까지 대결하나요?');
-  const [endDate, setEndDate] = useState(null);
+  .react-calendar__tile {
+    color: ${colors.text};
+  }
+
+  .react-calendar__month-view__days__day--neighboringMonth {
+    color: ${colors.textSubtle};
+  }
+
+  .react-calendar__tile--now {
+    background: ${colors.accentSoft};
+    color: ${colors.onAccent};
+  }
+
+  .react-calendar__tile--now:enabled:hover,
+  .react-calendar__tile--now:enabled:focus {
+    background: ${colors.accentSoft};
+    color: ${colors.onAccent};
+  }
+
+  .react-calendar__tile--active {
+    background: ${colors.accent};
+    color: ${colors.onAccent};
+  }
+
+  .react-calendar__tile--active:enabled:hover,
+  .react-calendar__tile--active:enabled:focus {
+    background: ${colors.accent};
+  }
+`;
+
+const formatRange = (range) => {
+  if (!range || !range[0]) return null;
+  const start = moment(range[0]).format('YYYY.MM.DD');
+  if (!range[1]) return start;
+  return `${start} ~ ${moment(range[1]).format('YYYY.MM.DD')}`;
+};
+
+export default function BattleCalendar({ onChange, value }) {
+  const [range, setRange] = useState(value ?? null);
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleToggleCalendar = () => {
-    setIsOpen(!isOpen);
-  };
-
-  // const handleDateChange = (selectedDate) => {
-  //   onChange(selectedDate);
-  //   setIsOpen(false);
-  //   setNowDate(moment(selectedDate).format('YYYY년 MM월 DD일'));
-  // };
-
-  const changeDate = (e) => {
-    const startDateFormat = moment(e[0]).format('YYYY.MM.DD');
-    const endDateFormat = moment(e[1]).format('YYYY.MM.DD');
-    // 여행 시작일자와 마치는일자의 값이 변할 때마다 값을 다시 세팅해줌
-    setStartDate(startDateFormat);
-    setEndDate(endDateFormat);
+  const changeDate = (selectedRange) => {
+    const [start, end] = selectedRange ?? [];
+    if (!start || !end) {
+      setRange(selectedRange ?? null);
+      return;
+    }
+    setRange([start, end]);
+    if (onChange) onChange([start, end]);
   };
 
   return (
-    <CalendarContainer>
-      <DropdownButton onClick={handleToggleCalendar}>
-        {startDate} {endDate}
+    <Container>
+      <DropdownButton type='button' onClick={() => setIsOpen((prev) => !prev)}>
+        {formatRange(range) ?? '언제부터 언제까지 대결하나요?'}
       </DropdownButton>
-      <CalendarWrapper isOpen={isOpen}>
+      <CalendarWrapper $isOpen={isOpen}>
         <Calendar
-          onChange={changeDate} // 적용된 부분
-          selectRange={true}
+          onChange={changeDate}
+          selectRange
+          value={range?.[1] ? range : undefined}
           formatDay={(locale, date) => moment(date).format('DD')}
-        ></Calendar>
+        />
       </CalendarWrapper>
-    </CalendarContainer>
+    </Container>
   );
-};
-
-export default BattleCalendar;
+}

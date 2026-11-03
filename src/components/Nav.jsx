@@ -1,125 +1,121 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Link, useMatch } from 'react-router-dom';
-import { cls } from '@/libs/utils';
+import { NavLink } from 'react-router-dom';
+import { colors, layout } from '@/styles/tokens';
 
-const Item = styled(motion.div)``;
+const NavBar = styled.nav`
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: ${layout.maxWidth};
+  height: calc(${layout.navHeight} + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  display: flex;
+  justify-content: space-between;
+  background: rgba(51, 51, 51, 0.45);
+  backdrop-filter: blur(12px);
+  border-radius: 20px 20px 0 0;
+  z-index: 20;
+`;
+
+const Item = styled(NavLink)`
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: ${colors.text};
+  opacity: 0.6;
+
+  &.active {
+    color: ${colors.accent};
+    opacity: 1;
+
+    svg {
+      fill: ${colors.accent};
+    }
+  }
+
+  svg {
+    fill: ${colors.text};
+    width: 24px;
+    height: 24px;
+  }
+
+  span {
+    font-size: 12px;
+    font-weight: 500;
+  }
+`;
+
+const Indicator = styled(motion.span)`
+  position: absolute;
+  bottom: 0;
+  width: 42px;
+  height: 26px;
+  border: 2px solid ${colors.accent};
+  border-bottom: 0;
+  border-radius: 10px 10px 4px 4px;
+`;
+
+const indicatorTransition = { type: 'spring', stiffness: 420, damping: 34 };
+
+const tabs = [
+  {
+    to: '/',
+    label: '내 기록',
+    end: true,
+    icon: (
+      <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path d='M11.47 3.84a.75.75 0 0 1 1.06 0l9.19 9.19a.75.75 0 1 1-1.06 1.06l-9.19-9.19-9.19 9.19a.75.75 0 0 1-1.06-1.06l9.19-9.19Z' />
+        <path d='M12 5.43 20.25 13.68V19.5A1.5 1.5 0 0 1 18.75 21H15a.75.75 0 0 1-.75-.75V16.5h-4.5v3.75A.75.75 0 0 1 9 21H5.25a1.5 1.5 0 0 1-1.5-1.5v-5.82L12 5.43Z' />
+      </svg>
+    )
+  },
+  {
+    to: '/battle',
+    label: '대결',
+    icon: (
+      <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path d='M5.53 15.56a.9.9 0 1 1 1.25-1.29 3.6 3.6 0 0 0 1.07 3.02A3.6 3.6 0 0 0 4.8 21a3.6 3.6 0 0 0 2.03-3.25 2.7 2.7 0 0 1 .94-2.02.9.9 0 0 1-.94-1.94 1.9 1.9 0 0 0-1.3 1.77Z' />
+        <path d='M7.2 7.5a5.7 5.7 0 0 0 2.7 4.78v-.01a5.7 5.7 0 1 0 6.7-9.07 5.7 5.7 0 0 0-2.7 4.78A5.7 5.7 0 0 0 7.2 7.5Zm8.4 3.3a2.4 2.4 0 1 1 0-4.8 2.4 2.4 0 0 1 0 4.8Z' />
+      </svg>
+    )
+  },
+  {
+    to: '/info',
+    label: '내 정보',
+    icon: (
+      <svg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
+        <path d='M12 2.25c-5.38 0-9.75 4.37-9.75 9.75s4.37 9.75 9.75 9.75 9.75-4.37 9.75-9.75S17.38 2.25 12 2.25Zm0 18.75a9 9 0 0 1-6.43-2.69 6.75 6.75 0 0 1 12.86 0A8.98 8.98 0 0 1 12 21Zm0-9.75a3.75 3.75 0 1 0 0-7.5 3.75 3.75 0 0 0 0 7.5Z' />
+      </svg>
+    )
+  }
+];
 
 export default function Nav() {
-  const mainMatch = useMatch('/');
-  const battleMatch = useMatch('/battle');
-  const waitBattleMatch = useMatch('/waitBattle');
-  const infoMatch = useMatch('/info');
-  const resultMatch = useMatch('/result/:id');
-
   return (
-    <nav className='flex justify-between absolute bottom-0 w-full bg-[#33333370] rounded-t-[20px] backdrop-blur-md'>
-      <Link
-        to={'/'}
-        className={cls(
-          `pb-[7px] pt-[10px] w-full h-full relative`,
-          mainMatch
-            ? 'fill-[#04C357] text-[#04C357]'
-            : 'fill-[#FEFEFE] opacity-[0.6] text-[#FEFEFE]'
-        )}
-      >
-        <div className='flex flex-col items-center gap-1'>
-          <svg
-            className=''
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill=''
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            <path d='M11.4697 3.84101C11.7626 3.54811 12.2374 3.54811 12.5303 3.84101L21.2197 12.5303C21.5126 12.8232 21.9874 12.8232 22.2803 12.5303C22.5732 12.2375 22.5732 11.7626 22.2803 11.4697L13.591 2.78035C12.7123 1.90167 11.2877 1.90167 10.409 2.78035L1.71967 11.4697C1.42678 11.7626 1.42678 12.2375 1.71967 12.5303C2.01256 12.8232 2.48744 12.8232 2.78033 12.5303L11.4697 3.84101Z' />
-            <path d='M12 5.432L20.159 13.591C20.1887 13.6207 20.2191 13.6494 20.25 13.6772V19.875C20.25 20.9105 19.4105 21.75 18.375 21.75H15C14.5858 21.75 14.25 21.4142 14.25 21V16.5C14.25 16.0858 13.9142 15.75 13.5 15.75H10.5C10.0858 15.75 9.75 16.0858 9.75 16.5V21C9.75 21.4142 9.41421 21.75 9 21.75H5.625C4.58947 21.75 3.75 20.9106 3.75 19.875V13.6772C3.78093 13.6494 3.81127 13.6207 3.84099 13.591L12 5.432Z' />
-          </svg>
-          <span className='text-[12px]'>내 기록</span>
-        </div>
-        {mainMatch && (
-          <Item
-            className='w-full h-full top-0 absolute flex justify-center items-center px-9'
-            layoutId='navigation'
-          >
-            <div className='border-[2px] w-[42px] border-[#04C357] absolute bottom-0 rounded-t-[10px] rounded-b-[4px]'></div>
-          </Item>
-        )}
-      </Link>
-      <Link
-        to={'/battle'}
-        className={cls(
-          `pb-[7px] pt-[10px] w-full h-full relative`,
-          battleMatch || waitBattleMatch
-            ? 'fill-[#04C357] text-[#04C357]'
-            : 'fill-[#FEFEFE] opacity-[0.6] text-[#FEFEFE]'
-        )}
-      >
-        <div className='flex flex-col items-center gap-1 relative'>
-          <svg
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill=''
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            <path
-              fillRule='evenodd'
-              clipRule='evenodd'
-              d='M5.52711 15.563C5.8313 15.9561 5.75921 16.5214 5.3661 16.8255C4.65505 17.3757 4.19995 18.2345 4.19995 19.2C4.19995 19.3883 4.21719 19.5721 4.25007 19.7499C4.42791 19.7828 4.61163 19.8 4.79995 19.8C5.76544 19.8 6.62422 19.3449 7.17443 18.6339C7.47862 18.2408 8.04389 18.1687 8.437 18.4729C8.83011 18.777 8.9022 19.3423 8.59801 19.7354C7.72159 20.868 6.34603 21.6 4.79995 21.6C4.24799 21.6 3.71596 21.5065 3.22003 21.3337C2.96061 21.2433 2.75669 21.0393 2.66629 20.7799C2.49348 20.284 2.39995 19.752 2.39995 19.2C2.39995 17.6539 3.13192 16.2784 4.26455 15.402C4.65766 15.0978 5.22293 15.1699 5.52711 15.563Z'
-            />
-            <path
-              fillRule='evenodd'
-              clipRule='evenodd'
-              d='M6.90278 14.4C7.68852 15.4052 8.5948 16.3114 9.59995 17.0972V21.9C9.59995 22.3971 10.0029 22.8 10.5 22.8C13.8137 22.8 16.5 20.1137 16.5 16.8C16.5 16.2117 16.415 15.6421 16.2565 15.1034C20.216 12.2756 22.7999 7.63982 22.7999 2.40001C22.7999 2.29482 22.7989 2.18985 22.7968 2.08512C22.7873 1.60203 22.3979 1.21271 21.9148 1.20313C21.8101 1.20106 21.7052 1.20001 21.5999 1.20001C16.3601 1.20001 11.7243 3.78398 8.8966 7.74351C8.3579 7.58495 7.78828 7.50001 7.19995 7.50001C3.88624 7.50001 1.19995 10.1863 1.19995 13.5C1.19995 13.9971 1.60289 14.4 2.09995 14.4H6.90278ZM15.6 10.8C16.9254 10.8 18 9.7255 18 8.40001C18 7.07453 16.9254 6.00001 15.6 6.00001C14.2745 6.00001 13.2 7.07453 13.2 8.40001C13.2 9.7255 14.2745 10.8 15.6 10.8Z'
-            />
-          </svg>
-          {/* 대결하기? 대결현황? 이름 변경 요망 */}
-          <span className='text-[12px]'>대결</span>
-        </div>
-        {(battleMatch || waitBattleMatch) && (
-          <Item
-            className='w-full h-full top-0 absolute flex justify-center items-center px-9'
-            layoutId='navigation'
-          >
-            <div className='border-[2px] w-[42px] border-[#04C357] absolute bottom-0 rounded-t-[10px] rounded-b-[4px]'></div>
-          </Item>
-        )}
-      </Link>
-      <Link
-        to={'/info'}
-        className={cls(
-          `pb-[7px] pt-[10px] w-full h-full relative`,
-          infoMatch || resultMatch
-            ? 'fill-[#04C357] text-[#04C357]'
-            : 'fill-[#FEFEFE] opacity-[0.6] text-[#FEFEFE]'
-        )}
-      >
-        <div className='flex flex-col items-center gap-1 relative'>
-          <svg
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill=''
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            <path
-              fillRule='evenodd'
-              clipRule='evenodd'
-              d='M18.6854 19.0971C20.5721 17.3191 21.75 14.7971 21.75 12C21.75 6.61522 17.3848 2.25 12 2.25C6.61522 2.25 2.25 6.61522 2.25 12C2.25 14.7971 3.42785 17.3191 5.31463 19.0971C7.06012 20.7419 9.41234 21.75 12 21.75C14.5877 21.75 16.9399 20.7419 18.6854 19.0971ZM6.14512 17.8123C7.51961 16.0978 9.63161 15 12 15C14.3684 15 16.4804 16.0978 17.8549 17.8123C16.3603 19.3178 14.289 20.25 12 20.25C9.711 20.25 7.63973 19.3178 6.14512 17.8123ZM15.75 9C15.75 11.0711 14.0711 12.75 12 12.75C9.92893 12.75 8.25 11.0711 8.25 9C8.25 6.92893 9.92893 5.25 12 5.25C14.0711 5.25 15.75 6.92893 15.75 9Z'
-            />
-          </svg>
-          <span className='text-[12px]'>내 정보</span>
-        </div>
-        {(infoMatch || resultMatch) && (
-          <Item
-            className='w-full h-full top-0 absolute flex justify-center items-center px-9'
-            layoutId='navigation'
-          >
-            <div className='border-[2px] w-[42px] border-[#04C357] absolute bottom-0 rounded-t-[10px] rounded-b-[4px]'></div>
-          </Item>
-        )}
-      </Link>
-    </nav>
+    <NavBar aria-label='주요 메뉴'>
+      {tabs.map(({ to, label, icon, end }) => (
+        <Item key={to} to={to} end={end}>
+          {({ isActive }) => (
+            <>
+              {icon}
+              <span>{label}</span>
+              {isActive && (
+                <Indicator
+                  layoutId='nav-indicator'
+                  transition={indicatorTransition}
+                />
+              )}
+            </>
+          )}
+        </Item>
+      ))}
+    </NavBar>
   );
 }

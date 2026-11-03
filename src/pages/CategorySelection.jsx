@@ -1,148 +1,116 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '@/components/Button';
+import styled from 'styled-components';
 import Back from '@/components/Back';
-import studentImage from '../assets/student.png';
-import govImage from '../assets/gov.png';
-import jobSeekerImage from '../assets/job_seeker.png';
-import workerImage from '../assets/worker.png';
-import othersImage from '../assets/others.png';
-import selectedStudentImage from '../assets/sstudent.png';
-import selectedGovImage from '../assets/sgov.png';
-import selectedJobSeekerImage from '../assets/sjob_seeker.png';
-import selectedWorkerImage from '../assets/sworker.png';
-import selectedOthersImage from '../assets/sothers.png';
+import Button from '@/components/Button';
+import SignupProgress from '@/components/SignupProgress';
+import { Content, Screen, Spacer } from '@/components/ui/Screen';
+import { useSignup } from '@/features/signup/SignupContext';
+import { CATEGORIES } from '@/features/signup/options';
+import { colors, radius, space, typography } from '@/styles/tokens';
 
-const categories = [
-  {
-    id: '학생',
-    label: '학생',
-    image: studentImage,
-    selectedImage: selectedStudentImage
-  },
-  {
-    id: '공시생',
-    label: '공시생',
-    image: govImage,
-    selectedImage: selectedGovImage
-  },
-  {
-    id: '취준생',
-    label: '취준생',
-    image: jobSeekerImage,
-    selectedImage: selectedJobSeekerImage
-  },
-  {
-    id: '직장인',
-    label: '직장인',
-    image: workerImage,
-    selectedImage: selectedWorkerImage
-  }
-];
+const Prompt = styled.h1`
+  margin-top: ${space(8)};
+  text-align: center;
+  font-size: ${typography.title.size};
+  font-weight: ${typography.title.weight};
+  letter-spacing: ${typography.title.letterSpacing};
+  color: ${colors.text};
+`;
 
-const othersCategory = {
-  id: '그외',
-  label: '그외',
-  image: othersImage,
-  selectedImage: selectedOthersImage
-};
+const Options = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: ${space(3)};
+  margin-top: ${space(6)};
+`;
 
-const CategoryButton = ({
-  label,
-  image,
-  selectedImage,
-  isSelected,
-  onClick
-}) => (
-  <div
-    onClick={onClick}
-    className={`flex flex-col items-center cursor-pointer p-4 rounded-lg ${
-      isSelected ? 'border-2 border-[#FECC54]' : ''
-    } bg-[#28272B] w-[156px] h-[124px]`}
-  >
-    <div className='w-20 h-20 flex items-center justify-center mb-4'>
-      <img
-        src={isSelected ? selectedImage : image}
-        alt={label}
-        className='w-16 h-16 object-cover'
-      />
-    </div>
-    <span className={`${isSelected ? 'text-[#FECC54]' : ''}`}>{label}</span>
-  </div>
-);
+const OptionCard = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: ${space(2)};
+  padding: ${space(4)} ${space(2)};
+  border: 2px solid
+    ${({ $selected }) => ($selected ? colors.accent : 'transparent')};
+  border-radius: ${radius.md};
+  background: ${colors.surface};
+  cursor: pointer;
+  transition: border-color 120ms ease;
+  ${({ $wide }) => ($wide ? 'grid-column: 1 / -1;' : '')}
+`;
+
+const OptionImage = styled.img`
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+`;
+
+const OptionLabel = styled.span`
+  font-size: ${typography.body.size};
+  font-weight: ${typography.body.weight};
+  letter-spacing: ${typography.body.letterSpacing};
+  color: ${({ $selected }) => ($selected ? colors.accent : colors.textMuted)};
+`;
 
 export default function CategorySelection() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
+  const { draft, updateDraft } = useSignup();
   const navigate = useNavigate();
 
-  const handleCategorySelect = (category) => {
-    if (selectedCategory === category) {
-      setSelectedCategory(null);
-    } else {
-      setSelectedCategory(category);
-    }
+  const selectedCategory = draft.category;
+  const canContinue = Boolean(selectedCategory);
+
+  const handleCategorySelect = (value) => {
+    updateDraft({ category: selectedCategory === value ? null : value });
   };
 
   const handleNextClick = () => {
-    if (selectedCategory) {
-      navigate('/AgeSelection');
-    }
+    if (!canContinue) return;
+    navigate('/signup/age');
   };
 
   return (
-    <div className='flex flex-col items-center h-screen bg-black text-white'>
-      <div className='flex justify-between items-center px-4 py-2 w-full'>
-        <Back backClick={() => navigate('/GenderSelection')} />
-        <h2 className='ml-7 mt-2 mb-2 text-xl font-bold'>회원가입</h2>
-        <svg width='40' height='40'>
-          <circle
-            cx='20'
-            cy='20'
-            r='12'
-            stroke='green'
-            strokeWidth='2'
-            fill='#28272B'
-            strokeDasharray='56.52'
-            strokeDashoffset='0'
-            transform='rotate(-90 20 20)'
-          />
-          <text x='16.2' y='24' fontSize='13' fill='white'>
-            3
-          </text>
-        </svg>
-      </div>
+    <Screen>
+      <Back title='회원가입' backClick={() => navigate('/signup/gender')} />
+      <SignupProgress step={2} />
 
-      <h1 className='mt-6 mb-4 text-lg'>소속을 알려주세요</h1>
-      <div className='grid grid-cols-2 gap-3 mt-4 max-w-screen-md'>
-        {categories.map((category) => (
-          <CategoryButton
-            key={category.id}
-            label={category.label}
-            image={category.image}
-            selectedImage={category.selectedImage}
-            isSelected={selectedCategory === category.id}
-            onClick={() => handleCategorySelect(category.id)}
-          />
-        ))}
-      </div>
-      <div className='mt-4'>
-        <CategoryButton
-          key={othersCategory.id}
-          label={othersCategory.label}
-          image={othersCategory.image}
-          selectedImage={othersCategory.selectedImage}
-          isSelected={selectedCategory === othersCategory.id}
-          onClick={() => handleCategorySelect(othersCategory.id)}
-        />
-      </div>
-      <div className='flex justify-center fixed bottom-8 w-full px-4'>
+      <Content>
+        <Prompt>소속을 알려주세요</Prompt>
+
+        <Options>
+          {CATEGORIES.map((category, index) => {
+            const isSelected = selectedCategory === category.value;
+
+            return (
+              <OptionCard
+                key={category.value}
+                type='button'
+                $selected={isSelected}
+                $wide={index === CATEGORIES.length - 1}
+                onClick={() => handleCategorySelect(category.value)}
+                aria-pressed={isSelected}
+              >
+                <OptionImage
+                  src={isSelected ? category.selectedImage : category.image}
+                  alt={category.label}
+                />
+                <OptionLabel $selected={isSelected}>
+                  {category.label}
+                </OptionLabel>
+              </OptionCard>
+            );
+          })}
+        </Options>
+
+        <Spacer />
+
         <Button
           clickEvent={handleNextClick}
           step='다음'
-          confirm={!!selectedCategory}
+          confirm={canContinue}
+          disabled={!canContinue}
         />
-      </div>
-    </div>
+      </Content>
+    </Screen>
   );
 }

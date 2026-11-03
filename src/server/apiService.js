@@ -15,7 +15,9 @@ export class ApiError extends Error {
   static from(error) {
     const status = error?.response?.status ?? null;
     const message =
-      error?.response?.data?.message ?? error?.message ?? '요청에 실패했습니다.';
+      error?.response?.data?.message ??
+      error?.message ??
+      '요청에 실패했습니다.';
     return new ApiError(message, status, error);
   }
 }

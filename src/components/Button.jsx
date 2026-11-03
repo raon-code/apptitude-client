@@ -1,20 +1,60 @@
-import { styled } from 'styled-components';
-import { cls } from '@/libs/utils';
+import styled from 'styled-components';
+import { colors, radius, space, typography } from '@/styles/tokens';
 
-export default function Button({ clickEvent, step, confirm }) {
+const Wrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${space(1)};
+  width: 100%;
+`;
+
+const StyledButton = styled.button`
+  width: 100%;
+  min-height: 56px;
+  padding: ${space(4)} ${space(5)};
+  border-radius: ${radius.pill};
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: ${({ $variant }) =>
+    $variant === 'ghost' ? colors.surface : colors.accent};
+  color: ${({ $variant }) =>
+    $variant === 'ghost' ? colors.textMuted : colors.onAccent};
+  transition:
+    transform 120ms ease,
+    opacity 120ms ease;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.98);
+  }
+`;
+
+export default function Button({
+  clickEvent,
+  step,
+  children,
+  confirm = true,
+  variant = 'primary',
+  disabled = false,
+  type = 'button'
+}) {
   return (
-    <div className='flex w-full absolute bottom-[32px] px-[16px]'>
-      <button
+    <Wrap>
+      <StyledButton
+        type={type}
         onClick={clickEvent}
-        className={cls(
-          'py-[18px] w-full font-bold text-[22px] rounded-[36px]',
-          confirm
-            ? 'bg-[#04C357] text-[#050409]'
-            : 'bg-[#050409] text-[#04C357]'
-        )}
+        disabled={disabled}
+        $variant={confirm ? variant : 'ghost'}
       >
-        {step}
-      </button>
-    </div>
+        {step ?? children}
+      </StyledButton>
+    </Wrap>
   );
 }
+
+export const buttonTextStyle = typography.title;

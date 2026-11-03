@@ -8,6 +8,7 @@ export const colors = {
   textMuted: '#BEBDC4',
   textSubtle: '#6E7487',
   danger: '#D83E3E',
+  kakao: '#F8E049',
   onAccent: '#0F0E14'
 };
 
