@@ -12,10 +12,10 @@ export default function WaitBattle() {
   const [time, setTime] = useState(30);
   const [openModal, setOpenModal] = useState(false);
   useEffect(() => {
-    setTime(12);
+    setTime(29);
   }, []);
   useEffect(() => {
-    if (time < 15) {
+    if (time < 16) {
       setIsWorning(true);
     } else {
       setIsWorning(false);
