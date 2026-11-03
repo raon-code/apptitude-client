@@ -1,6 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '@/App';
-import Home from '@/pages/Home';
 import Test from '@/pages/Test';
 import Login from '@/pages/Login';
 import Survey from '@/pages/Survey';
@@ -9,6 +8,7 @@ import Battle from '@/pages/Battle';
 import Info from '@/pages/Info';
 import WaitBattle from './pages/WaitBattle';
 import Result from './pages/Result';
+import Main from '@/pages/Main';
 import GenderSelection from './pages/GenderSelection';
 import Profile from './pages/Profile';
 import CategorySelection from './pages/CategorySelection';
@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Home />
+        element: <Main />
       },
       {
         path: 'test',
