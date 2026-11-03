@@ -7,7 +7,6 @@
     "axios": "^1.7.4",
     "chart.js": "^4.4.2",
     "chartjs-plugin-datalabels": "^2.2.0",
-    "clsx": "^2.1.1",
     "framer-motion": "^11.1.5",
     "moment": "^2.30.1",
     "react": "^18.2.0",
@@ -25,12 +24,20 @@
     "swiper": "^11.1.1"
   },
   "scripts": {
-    "start": "NODE_ENV=test craco start",
-    "start:dev": "NODE_ENV=production craco start",
+    "start": "craco start",
     "start:prod": "NODE_ENV=production craco start",
     "build": "craco build",
-    "test": "craco test",
+    "test": "craco test --watchAll=false",
+    "test:watch": "craco test",
+    "lint": "eslint src --ext .js,.jsx",
+    "format": "prettier --write \"src/**/*.{js,jsx,css,json}\"",
+    "format:check": "prettier --check \"src/**/*.{js,jsx,css,json}\"",
     "eject": "craco eject"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
   },
   "eslintConfig": {
     "extends": [
@@ -51,6 +58,9 @@
     ]
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "eslint": "^8.57.0",
+    "eslint-config-react-app": "^7.0.1",
+    "prettier": "^3.3.3"
   }
 }
