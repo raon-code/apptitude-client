@@ -1,90 +1,138 @@
+import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import Contract from '@/components/Contract';
 import Modal from '@/components/Modal';
 import Nav from '@/components/Nav';
 import Title from '@/components/Title';
 import VS from '@/components/VS';
-import { cls } from '@/libs/utils';
-import { useEffect, useState } from 'react';
+import { Content, Screen, Spacer } from '@/components/ui/Screen';
+import { colors, radius, space } from '@/styles/tokens';
+
+const WAIT_MINUTES = 30;
+const WARNING_THRESHOLD = 16;
+
+const ContentWrap = styled.div`
+  filter: ${({ $blurred }) => ($blurred ? 'blur(4px)' : 'none')};
+  transition: filter 160ms ease;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+
+const TimerRow = styled.div`
+  margin: ${space(6)} ${space(6)} 0;
+`;
+
+const TimerLabels = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  color: ${colors.textMuted};
+  font-size: 16px;
+  font-weight: 500;
+`;
+
+const Remaining = styled.span`
+  color: ${({ $warning }) => ($warning ? colors.accentSoft : colors.accent)};
+  font-weight: 600;
+`;
+
+const Total = styled.span`
+  color: ${colors.textSubtle};
+  font-size: 14px;
+  margin-left: 2px;
+`;
+
+const Track = styled.div`
+  height: 8px;
+  margin-top: ${space(2)};
+  border-radius: ${radius.md};
+  background: ${colors.surface};
+  overflow: hidden;
+`;
+
+const Fill = styled.div`
+  height: 100%;
+  border-radius: ${radius.md};
+  width: ${({ $percent }) => `${$percent}%`};
+  background: ${({ $warning }) =>
+    $warning ? colors.accentSoft : colors.accent};
+  transition: width 300ms ease;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  gap: ${space(3)};
+  margin-top: ${space(6)};
+  margin-bottom: ${space(4)};
+
+  button {
+    flex: 1;
+    min-height: 56px;
+    border-radius: ${radius.pill};
+    font-size: 18px;
+    font-weight: 700;
+  }
+`;
+
+const CancelButton = styled.button`
+  background: ${colors.surface};
+  color: ${colors.text};
+`;
+
+const InviteButton = styled.button`
+  background: ${colors.accent};
+  color: ${colors.onAccent};
+`;
 
 export default function WaitBattle() {
-  const [isWorning, setIsWorning] = useState(false);
-  const [progressWidth, setProgressWidth] = useState(0);
-  const [time, setTime] = useState(30);
-  const [openModal, setOpenModal] = useState(false);
-  useEffect(() => {
-    setTime(29);
-  }, []);
-  useEffect(() => {
-    if (time < 16) {
-      setIsWorning(true);
-    } else {
-      setIsWorning(false);
-    }
+  const [minutesLeft, setMinutesLeft] = useState(WAIT_MINUTES);
+  const [isCancelOpen, setIsCancelOpen] = useState(false);
 
-    setProgressWidth(Math.floor((time / 30) * 100));
-  }, [time]);
-  const cancleBattle = () => {
-    setOpenModal(true);
-  };
-  const closeModal = () => {
-    setOpenModal(false);
-  };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMinutesLeft((current) => (current > 0 ? current - 1 : 0));
+    }, 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const isWarning = minutesLeft < WARNING_THRESHOLD;
+  const percent = Math.floor((minutesLeft / WAIT_MINUTES) * 100);
+
   return (
-    <div>
-      <div
-        className={cls(
-          'px-[16px] h-screen w-screen overflow-scroll pb-[86px]',
-          openModal ? 'blur-sm' : ''
-        )}
-      >
-        <Title title={'친구 기다리는 중'} />
-        <VS />
-        {/* 프로그레스바 */}
-        <div className='flex flex-col  mt-[24px] mx-[24px]'>
-          <div className='flex justify-between'>
-            <span className='text-[#BEBDC4] text-[16px] font-medium'>
-              대결방 유효 시간
-            </span>
-            <div>
-              <span
-                className={cls(
-                  'font-medium text-[16px]',
-                  isWorning ? 'text-[#F2AE30]' : 'text-[#04C357]'
-                )}
-              >
-                {time}분 남음
+    <Screen $nav>
+      <ContentWrap $blurred={isCancelOpen}>
+        <Content>
+          <Title title='친구 기다리는 중' />
+          <VS />
+          <TimerRow>
+            <TimerLabels>
+              <span>대결방 유효 시간</span>
+              <span>
+                <Remaining $warning={isWarning}>{minutesLeft}분 남음</Remaining>
+                <Total>/{WAIT_MINUTES}분</Total>
               </span>
-              <span className='text-[#6E7487] text-[14px] font-medium'>
-                /30분
-              </span>
-            </div>
-          </div>
-          <div className='w-full bg-[#28272B] rounded-[16px] h-[8px] mt-[8px]'>
-            <div
-              className={cls(
-                `h-[8px] rounded-[16px]`,
-                isWorning ? 'bg-[#F2AE30]' : 'bg-[#04C357]'
-              )}
-              style={{ width: `${progressWidth}%` }}
-            ></div>
-          </div>
-        </div>
-        {/* 대결계약서 */}
-        <Contract type={'waitBattle'} />
-        <div className='mt-[24px] flex justify-between text-[22px] leading-[28px] font-bold'>
-          <button
-            onClick={cancleBattle}
-            className='text-[#FEFEFE] bg-[#333333] px-[20px] py-[16px] rounded-[36px]'
-          >
-            대결취소
-          </button>
-          <button className='text-[#050409] bg-[#04C357] px-[18.5px] py-[16px] rounded-[36px]'>
-            카톡으로 초대하기
-          </button>
-        </div>
-      </div>
+            </TimerLabels>
+            <Track>
+              <Fill $percent={percent} $warning={isWarning} />
+            </Track>
+          </TimerRow>
+          <Contract type='waitBattle' />
+          <Spacer />
+          <Actions>
+            <CancelButton type='button' onClick={() => setIsCancelOpen(true)}>
+              대결취소
+            </CancelButton>
+            <InviteButton type='button'>카톡으로 초대하기</InviteButton>
+          </Actions>
+        </Content>
+      </ContentWrap>
       <Nav />
-      <Modal openModal={openModal} closeModal={closeModal} />
-    </div>
+      <Modal
+        openModal={isCancelOpen}
+        closeModal={() => setIsCancelOpen(false)}
+      />
+    </Screen>
   );
 }

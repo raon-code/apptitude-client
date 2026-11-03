@@ -1,16 +1,42 @@
 import { Link } from 'react-router-dom';
-import image from '@/kakao_logo.png';
+import styled from 'styled-components';
+import image from '@/assets/kakao_logo.png';
+import { colors, radius, space } from '@/styles/tokens';
 
-export default function LoginButton({ toLink, title }) {
+const KakaoLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: ${space(2)};
+  width: 100%;
+  min-height: 60px;
+  padding: ${space(4)} ${space(5)};
+  border-radius: ${radius.pill};
+  background: ${colors.kakao};
+  color: ${colors.onAccent};
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  transition:
+    transform 120ms ease,
+    opacity 120ms ease;
+
+  &:active {
+    transform: scale(0.98);
+  }
+`;
+
+const KakaoLogo = styled.img`
+  width: 22px;
+  height: 22px;
+`;
+
+export default function LoginButton({ toLink = '/signup/profile', title }) {
   return (
-    <div className='flex w-full px-[16px] absolute bottom-[6px]'>
-      <Link
-        to={toLink}
-        className='w-full bg-[#F8E049] text-[#050409] text-center text-[22px] py-[18px] rounded-[36px] font-bold flex items-center justify-center'
-      >
-        <img src={image} alt='Kakao Logo' className='mx-2' />
-        {title}
-      </Link>
-    </div>
+    <KakaoLink to={toLink}>
+      <KakaoLogo src={image} alt='' />
+      {title}
+    </KakaoLink>
   );
 }

@@ -1,10 +1,9 @@
 {
-  "javascriptEnable": ["javascript", "javascriptreact"],
   "semi": true,
   "singleQuote": true,
   "tabWidth": 2,
   "printWidth": 80,
   "trailingComma": "none",
   "jsxSingleQuote": true,
-  "endOfLine": "auto"
+  "endOfLine": "lf"
 }

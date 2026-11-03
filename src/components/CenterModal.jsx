@@ -1,32 +1,90 @@
-export default function CenterModal({ isDeclareSurrender, closeCenterModal }) {
+import styled from 'styled-components';
+import { colors, layout, radius, space } from '@/styles/tokens';
+
+const Overlay = styled.div`
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 ${space(4)};
+  background: rgba(5, 4, 9, 0.72);
+`;
+
+const Dialog = styled.div`
+  width: 100%;
+  max-width: ${layout.maxWidth};
+  padding: ${space(8)} ${space(4)};
+  background: ${colors.surface};
+  border-radius: ${radius.lg};
+`;
+
+const Message = styled.p`
+  color: ${colors.text};
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: center;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: ${space(4)};
+  margin-top: ${space(10)};
+  padding: 0 ${space(6)};
+`;
+
+const Ghost = styled.button`
+  padding: ${space(2)} ${space(2.5)};
+  border-radius: ${radius.pill};
+  background: ${colors.bg};
+  color: ${colors.textMuted};
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+`;
+
+const Primary = styled.button`
+  padding: ${space(2)} ${space(2.5)};
+  border-radius: ${radius.pill};
+  background: ${colors.accent};
+  color: ${colors.onAccent};
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 22px;
+`;
+
+export default function CenterModal({
+  isDeclareSurrender,
+  closeCenterModal,
+  onSurrender
+}) {
+  if (!isDeclareSurrender) return null;
+
   return (
-    // CentalModal
-    <div
-      className={
-        isDeclareSurrender
-          ? 'w-screen h-screen fixed flex flex-col items-center'
-          : 'hidden'
-      }
-    >
-      <div className='w-full h-full flex items-center justify-center px-[16px]'>
-        <div className='bg-[#28272B] py-[32px] w-full flex flex-col rounded-[30px]'>
-          <div className='flex items-center justify-center text-center leading-[24px] text-[18px] text-white'>
-            정말 대결을 <br />
-            포기하시겠어요?
-          </div>
-          <div className='flex mt-[40px] justify-between px-[34.5px] items-center'>
-            <div className='font-medium text-[16px] text-[#BEBDC4] leading-[22px] bg-[#050409] px-[10px] py-[8px] rounded-[30px]'>
-              네, 포기할래요
-            </div>
-            <div
-              onClick={closeCenterModal}
-              className='text-[#0F0E14] font-medium text-[16px] leading-[22px] bg-[#04C357] px-[10px] py-[8px] rounded-[30px]'
-            >
-              아뇨, 계속할래요
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <Overlay onClick={closeCenterModal}>
+      <Dialog
+        role='alertdialog'
+        aria-modal='true'
+        aria-label='항복 선언'
+        onClick={(event) => event.stopPropagation()}
+      >
+        <Message>
+          정말 대결을 <br />
+          포기하시겠어요?
+        </Message>
+        <Actions>
+          <Ghost type='button' onClick={onSurrender}>
+            네, 포기할래요
+          </Ghost>
+          <Primary type='button' onClick={closeCenterModal}>
+            아뇨, 계속할래요
+          </Primary>
+        </Actions>
+      </Dialog>
+    </Overlay>
   );
 }

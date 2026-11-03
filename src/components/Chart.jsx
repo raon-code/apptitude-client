@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -9,8 +11,7 @@ import {
 } from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import Draggable from 'react-draggable';
-import { useEffect, useRef, useState } from 'react';
-import { cls } from '@/libs/utils';
+import { colors, space } from '@/styles/tokens';
 
 ChartJS.register(
   CategoryScale,
@@ -20,49 +21,46 @@ ChartJS.register(
   BarElement
 );
 
+const withAlpha = (hex, alpha) => {
+  const value = parseInt(hex.slice(1), 16);
+  const r = (value >> 16) & 255;
+  const g = (value >> 8) & 255;
+  const b = value & 255;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+const labels = ['-', '-', '01/01', '01/02', '01/03', '01/04'];
+
 const data = {
-  labels: ['-', '-', '01/01', '01/02', '01/03', '01/04'],
+  labels,
   datasets: [
     {
-      // barThickness: 22,
       type: 'bar',
       label: 'me',
-      borderColor: function (context) {
-        if (context.dataIndex === data.labels.length - 1) {
-          return 'rgba(4, 195, 87, 1)';
-        } else {
-          return 'rgba(4, 195, 87, 0.2)';
-        }
-      },
-      backgroundColor: function (context) {
-        if (context.dataIndex === data.labels.length - 1) {
-          return 'rgba(4, 195, 87, 1)';
-        } else {
-          return 'rgba(4, 195, 87, 0.2)';
-        }
-      },
       borderWidth: 2,
+      borderColor: (context) =>
+        context.dataIndex === labels.length - 1
+          ? colors.accent
+          : withAlpha(colors.accent, 0.2),
+      backgroundColor: (context) =>
+        context.dataIndex === labels.length - 1
+          ? colors.accent
+          : withAlpha(colors.accent, 0.2),
       data: [40, 60, 80, 100]
     },
     {
       type: 'bar',
       label: 'other',
-      data: [30, 50, 60, 80],
-      backgroundColor: function (context) {
-        if (context.dataIndex === data.labels.length - 1) {
-          return 'rgba(110, 116, 135, 1)';
-        } else {
-          return 'rgba(110, 116, 135, 0.2)';
-        }
-      },
-      borderColor: function (context) {
-        if (context.dataIndex === data.labels.length - 1) {
-          return 'rgba(110, 116, 135, 1)';
-        } else {
-          return 'rgba(110, 116, 135, 0.2)';
-        }
-      },
-      borderWidth: 2
+      borderWidth: 2,
+      borderColor: (context) =>
+        context.dataIndex === labels.length - 1
+          ? colors.textSubtle
+          : withAlpha(colors.textSubtle, 0.2),
+      backgroundColor: (context) =>
+        context.dataIndex === labels.length - 1
+          ? colors.textSubtle
+          : withAlpha(colors.textSubtle, 0.2),
+      data: [30, 50, 60, 80]
     }
   ]
 };
@@ -72,51 +70,60 @@ const options = {
     y: {
       beginAtZero: true,
       max: 120,
-      ticks: {
-        stepSize: 20,
-        color: '#BEBDC4'
-      },
-      grid: {
-        drawBorder: true,
-        color: '#28272B'
-      }
+      ticks: { stepSize: 20, color: colors.textMuted },
+      grid: { drawBorder: true, color: colors.surface }
     },
     x: {
       offset: true,
-      ticks: {
-        color: '#BEBDC4'
-      },
-      grid: {
-        drawBorder: true,
-        color: 'rgba(166, 166, 166, 0.1)'
-      }
+      ticks: { color: colors.textMuted },
+      grid: { drawBorder: true, color: withAlpha(colors.textSubtle, 0.2) }
     }
   },
   maintainAspectRatio: false,
   plugins: {
     datalabels: {
-      formatter: function (value, context) {
-        const idx = context.dataIndex;
-        const dataLength = context.dataset.data.length - 1;
-        if (idx === dataLength) {
-          return value + '%';
-        } else {
-          return '';
-        }
-      },
       display: true,
       anchor: 'end',
       align: 'top',
-      color: function (context) {
-        if (context.dataset.label === 'me') {
-          return 'rgba(4, 195, 87, 1)';
-        } else {
-          return 'rgba(110, 116, 135, 1)';
-        }
-      }
+      formatter: (value, context) =>
+        context.dataIndex === context.dataset.data.length - 1
+          ? `${value}%`
+          : '',
+      color: (context) =>
+        context.dataset.label === 'me' ? colors.accent : colors.textSubtle
     }
   }
 };
+
+const Root = styled.div`
+  position: relative;
+  height: 242px;
+`;
+
+const Canvas = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 ${space(4)};
+`;
+
+const Axis = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 242px;
+  padding: ${space(9)} 0 ${space(6)} ${space(5)};
+  background: ${colors.surface};
+  color: ${colors.textMuted};
+  font-size: 12px;
+  line-height: 16px;
+`;
+
+const axisTicks = ['100', '80', '60', '40', '20', '0'];
 
 export default function Chart({ containerRef }) {
   const chartRef = useRef(null);
@@ -129,54 +136,40 @@ export default function Chart({ containerRef }) {
 
   useEffect(() => {
     const updateBounds = () => {
-      if (containerRef.current && chartRef.current) {
-        const containerWidth = containerRef.current.offsetWidth;
-        const chartWidth = chartRef.current.offsetWidth;
-        setBounds({
-          left: -(chartWidth - containerWidth),
-          right: 0,
-          top: 0,
-          bottom: 0
-        });
-      }
+      if (!containerRef.current || !chartRef.current) return;
+
+      setBounds({
+        left: -(
+          chartRef.current.offsetWidth - containerRef.current.offsetWidth
+        ),
+        right: 0,
+        top: 0,
+        bottom: 0
+      });
     };
 
-    // Initial bounds calculation
     updateBounds();
-
-    // Recalculate bounds on window resize
     window.addEventListener('resize', updateBounds);
     return () => window.removeEventListener('resize', updateBounds);
-  }, []);
+  }, [containerRef]);
 
-  console.log(data.labels.length);
   return (
-    <div ref={containerRef} className=''>
+    <Root ref={containerRef}>
+      <Axis aria-hidden='true'>
+        {axisTicks.map((tick) => (
+          <span key={tick}>{tick}</span>
+        ))}
+      </Axis>
       <Draggable axis='x' bounds={bounds}>
-        <div
-          ref={chartRef}
-          className={cls(
-            'px-[16px] absolute bottom-[26px]',
-            data.labels.length < 5 && 'w-full'
-          )}
-        >
+        <Canvas ref={chartRef}>
           <Line
-            className=''
             data={data}
             options={options}
             style={{ height: '242px' }}
             plugins={[ChartDataLabels]}
           />
-        </div>
+        </Canvas>
       </Draggable>
-      <div className='pl-[20px] left-[0px] items-center h-[242px] text-[12px] pt-[36px] pb-[25px] justify-between absolute flex flex-col bg-[#28272B] text-[#BEBDC4]'>
-        <span className='leading-[16px]'>100</span>
-        <span className='leading-[16px]'>80</span>
-        <span className='leading-[16px]'>60</span>
-        <span className='leading-[16px]'>40</span>
-        <span className='leading-[16px]'>20</span>
-        <span className='leading-[16px]'>0</span>
-      </div>
-    </div>
+    </Root>
   );
 }

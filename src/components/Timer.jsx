@@ -1,77 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { colors, space } from '@/styles/tokens';
 
-const TimerContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #fefefe;
+  color: ${colors.text};
+  gap: ${space(1)};
 `;
 
-const Title = styled.p`
-  color: var(--font_sub2, #bebdc4);
-  text-align: center;
-  font-family: Pretendard;
+const Label = styled.p`
+  color: ${colors.textMuted};
   font-size: 16px;
-  font-style: normal;
   font-weight: 500;
-  line-height: normal;
   letter-spacing: -0.4px;
-  display: ${(props) => (props.isDetoxStarted ? 'none' : 'block')};
 `;
 
-const TimeDisplay = styled.h1`
-  color: var(--font_white, #fefefe);
-  text-align: center;
-  font-family: Pretendard;
+const Time = styled.p`
+  color: ${colors.text};
   font-size: 68px;
-  font-style: normal;
   font-weight: 600;
-  line-height: normal;
   letter-spacing: -0.272px;
+  font-variant-numeric: tabular-nums;
 `;
 
-const Timer = ({ isDetoxStarted }) => {
+export function formatTime(totalSeconds) {
+  const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+  const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(
+    2,
+    '0'
+  );
+  const seconds = String(totalSeconds % 60).padStart(2, '0');
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+export default function Timer({ isDetoxStarted }) {
   const [seconds, setSeconds] = useState(0);
-  const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    let interval = null;
+    if (!isDetoxStarted) return undefined;
 
-    if (isDetoxStarted && !isActive) {
-      setIsActive(true);
-    } else if (!isDetoxStarted && isActive) {
-      setIsActive(false);
-    }
-
-    if (isActive) {
-      interval = setInterval(() => {
-        setSeconds((prevSeconds) => prevSeconds + 1);
-      }, 1000);
-    } else if (!isActive && seconds !== 0) {
-      clearInterval(interval);
-    }
+    const interval = setInterval(() => {
+      setSeconds((prevSeconds) => prevSeconds + 1);
+    }, 1000);
 
     return () => clearInterval(interval);
-  }, [isActive, seconds, isDetoxStarted]);
-
-  const formatTime = (totalSeconds) => {
-    const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
-    const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(
-      2,
-      '0'
-    );
-    const seconds = String(totalSeconds % 60).padStart(2, '0');
-    return `${hours}:${minutes}:${seconds}`;
-  };
+  }, [isDetoxStarted]);
 
   return (
-    <TimerContainer>
-      <Title isDetoxStarted={isDetoxStarted}>누적 해독 현황</Title>
-      <TimeDisplay>{formatTime(seconds)}</TimeDisplay>
-    </TimerContainer>
+    <Container>
+      {!isDetoxStarted && <Label>누적 해독 현황</Label>}
+      <Time aria-live='off'>{formatTime(seconds)}</Time>
+    </Container>
   );
-};
-
-export default Timer;
+}
