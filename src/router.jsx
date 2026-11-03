@@ -9,6 +9,10 @@ import Battle from '@/pages/Battle';
 import Info from '@/pages/Info';
 import WaitBattle from './pages/WaitBattle';
 import Result from './pages/Result';
+import GenderSelection from './pages/GenderSelection';
+import Profile from './pages/Profile';
+import CategorySelection from './pages/CategorySelection';
+import AgeSelection from './pages/AgeSelection';
 
 export const router = createBrowserRouter([
   {
@@ -50,6 +54,22 @@ export const router = createBrowserRouter([
       {
         path: 'result/:id',
         element: <Result />
+      },
+      {
+        path: 'GenderSelection',
+        element: <GenderSelection />
+      },
+      {
+        path: 'Profile',
+        element: <Profile />
+      },
+      {
+        path: 'CategorySelection',
+        element: <CategorySelection />
+      },
+      {
+        path: 'AgeSelection',
+        element: <AgeSelection />
       }
     ]
   }
